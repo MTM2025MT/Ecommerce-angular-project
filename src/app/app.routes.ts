@@ -6,7 +6,7 @@ import  {SignIn} from './Components/logingfolder/sign-in/sign-in';
 import { Main } from './Components/main/main';
 export const routes: Routes = [
  {
-  path: '',
+  path: 'loging',
   pathMatch: 'full',
   component: Loging,
   children:[
