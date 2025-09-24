@@ -1,5 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { CartService } from './services/cart-service';
+import { environment } from './../environments/environment.development';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Navbar } from './Components/navbar/navbar';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +11,11 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('FirstApp');
+   CartService=inject(CartService)
+  constructor() {
+    console.log('Environment:', environment
+    );
+  }
+
 }
+

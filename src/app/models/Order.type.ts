@@ -1,0 +1,32 @@
+import { Float } from './../../../node_modules/dot-prop/node_modules/type-fest/source/numeric.d';
+import { payment } from './User.type';
+export  type order={
+      id:number,
+      order_number:number ,
+      user_id:number,
+      cart_id:number,
+      address_id:number,
+      status:"pending"|  "processing"  | "shipped"| "delivered" | "cancelled"  | "refunded",
+      total:number,
+      currency: "USD"|"REl"|"ERU",
+      payment_method: "credit_card"|"cash",
+      saved_payment:string,
+      payment_detiles?:payment,
+      created_at: string
+}
+/** "order_statuses": {
+    "pending": "Order created, waiting for payment",
+    "paid": "Payment successful, order confirmed",
+    "processing": "Preparing your order for shipment",
+    "shipped": "Order is on the way to you",
+    "delivered": "Order successfully delivered",
+    "cancelled": "Order was cancelled",
+    "refunded": "Money returned to customer"
+  },
+
+  "payment_statuses": {
+    "pending": "Payment not completed yet",
+    "completed": "Payment successful",
+    "failed": "Payment failed",
+    "refunded": "Payment refunded"
+  }, */

@@ -1,0 +1,30 @@
+    <nav style="position: sticky; top: 0; z-index: 3; background-color: #87CEEB;">
+        <div>
+            <a routerLink="/home" class="nav-icon">E-commerce</a>
+        </div>
+        <div class="nav-right">
+
+              @if (showSearchBar()){
+                <div class="container-fluid">
+                    <form class="d-flex" role="search">
+                        <input [(ngModel)]="serachvalue"   [ngModelOptions]="{standalone: true}" (input)="onserach()" class="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search"/>
+                    </form>
+                </div>
+              }
+
+            <a routerLink="/profile"><i style="font-size: 50px; color: aliceblue;" class="bi bi-person-circle profilIcon"></i></a>
+      <a class="CartIcon" routerLink="/shoping-cart"  routerLinkActive="active" appNavbarcartcounter ><i style="color: white;" class="bi bi-cart-plus-fill"></i></a>
+
+        </div>
+    </nav>
+    <header id="home">
+        <section class="image-section">
+            <div class="main-img-container">
+                <img class="main-img" [src]="image" alt="main-img">
+                <div class="main-title">
+                    <p class="title">Welcome to E-commerce</p>
+                    <p class="paragraph">welcome where you can buy whataver you want</p>
+                </div>
+            </div>
+        </section>
+    </header>

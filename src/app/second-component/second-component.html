@@ -1,0 +1,10 @@
+<ul style="list-style-type: none;">
+@for (item of items; track $index) {
+  @if(item.price>500){
+  <li style="background-color: red;color: azure;">{{item.id}} {{item.price}} {{item.name}}</li>
+  }
+  @else {
+  <li style="background-color: green;color: aliceblue;">{{item.id}} {{item.price}} {{item.name}}</li>
+  }
+
+}</ul>
