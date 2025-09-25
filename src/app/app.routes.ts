@@ -7,7 +7,6 @@ import { Main } from './Components/main/main';
 export const routes: Routes = [
  {
   path: 'loging',
-  pathMatch: 'full',
   component: Loging,
   children:[
   { path: 'sign-in', component: SignIn },
@@ -16,20 +15,20 @@ export const routes: Routes = [
   ],
 
  },
-   {
-  path: 'loging',
-  pathMatch: 'full',
-  component: Loging
+ {
+  path:'',
+  pathMatch:'full',
+  redirectTo:'loging'
  },
  {
-    path: '',
+    path: 'main',
     component:Main,
     children:[
-
  {
   path: 'home',
   component: Home
- }
+ },
+   { path: '', redirectTo: 'home', pathMatch: 'full' }
  ,
   {
     path:'shoping-cart',

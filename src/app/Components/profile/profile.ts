@@ -19,25 +19,26 @@ export class Profile implements OnInit{
     PasswordChangeGroupForm!:FormGroup;
      AddingAddressGroupForm!:FormGroup;
      paymentGroupForm!:FormGroup;
-    defaultUser= signal(this.UserService.defaultUser)
+
+    defaultUser= this.UserService.defaultUser
   defaultAdressForThisUser = signal<Address | null>(null);
   //store the edited or lasted edited address
    Editmode=signal({...this.defaultAdressForThisUser(),choice:false});
    Editmodepayment=signal(false);
 
     constructor(){
-      this.UserService.getUsers().subscribe(
-        res=>{
-      this.defaultUser.set(res[0]);
-      this.defaultUser().addresses?.forEach(
-        ad=>{
-          if(ad.default==true)
-          this.defaultAdressForThisUser.set(ad)
-        }
-      )
+    //   this.UserService.getUsers().subscribe(
+    //     res=>{
+    //   this.defaultUser.set(res[0]);
+    //   this.defaultUser().addresses?.forEach(
+    //     ad=>{
+    //       if(ad.default==true)
+    //       this.defaultAdressForThisUser.set(ad)
+    //     }
+    //   )
 
-    }
-      )
+    // }
+    //   )
 
     }
     ngOnInit(): void {

@@ -16,17 +16,15 @@ export class SignUp {
   UserService=inject(UserService)
   constructor(){
 
-    this.LogingGroupForm=this.fb.group(
-      {
-      firstname:this.fb.control('',[Validators.required,Validators.minLength(3)]),
-      lastname:this.fb.control('',[Validators.required,Validators.minLength(3)]),
-      email:this.fb.control('',[Validators.required,Validators.email]),
-      age:this.fb.control('',[Validators.required,Validators.min(18),Validators.max(60)]),
-      password:this.fb.control('',[Validators.required,Validators.minLength(6),]),
-      confirmPassword:this.fb.control('',)
-      },
-      { Validators: this.MustMatchPassWord }
-    )
+this.LogingGroupForm = this.fb.group({
+  firstName: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+  lastName: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+  email: this.fb.control('', [Validators.required, Validators.email]),
+  age: this.fb.control('', [Validators.required, Validators.min(18), Validators.max(60)]),
+  password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
+  confirmPassword: this.fb.control('')
+}
+);
   }
       MustMatchPassWord(group:FormGroup){
 
@@ -41,7 +39,11 @@ export class SignUp {
   }
     onSubmit(){
     if(this.LogingGroupForm.valid){
-      this.UserService.CreateUser(this.LogingGroupForm.value as user)
+      const id = Math.floor(Math.random() * 1000000);
+      this.UserService.CreateUser({...this.LogingGroupForm.value,id:id}).subscribe({
+        next:res=>console.log(res),
+        error:err=>console.error(err)
+      })
     }else{
       this.validateAllFormFields(this.LogingGroupForm);
     }
