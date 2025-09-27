@@ -201,8 +201,8 @@
     <!-- Saved Payment Methods -->
     <section  class="card" aria-labelledby="paymentsTitle">
       <div (click)="SavedPaymentMethodsLocktoggle()" class="section-title">
-        <h2 id="paymentsTitle" class="section-title">💳 Saved Payment Methods</h2>
-         <i  class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+        <h2 id="paymentsTitle" class="section-title-payment">💳 Saved Payment Methods</h2>
+         <i  class="bi payment" [ngClass]="SavedPaymentMethodsCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
       </div>
             @if(SavedPaymentMethodsCompenentLock()){
               <div  class="list">

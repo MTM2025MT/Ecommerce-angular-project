@@ -15,7 +15,7 @@ export type CartElement = {
 export type Cart={
   products: CartElement[],
   total:number,
-  id:number,
+  id:string,
   userId:number,
   totalProducts: number,
   totalQuantity: number

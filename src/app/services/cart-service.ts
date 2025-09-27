@@ -1,6 +1,6 @@
 import { UserService } from './user-service';
 
-import { Injectable, inject, signal, OnDestroy, OnInit } from '@angular/core';
+import { Injectable, inject, signal, OnDestroy, OnInit, effect } from '@angular/core';
 import { CartElement,Cart } from '../models/CartElement.type';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product.type';
@@ -16,10 +16,17 @@ export class CartService {
   cartservice=inject(OrderingProcess)
    UserService=inject(UserService)
    defaultUser=this.UserService.defaultUser
-   UserId=computed(()=>this.defaultUser().id) ;
+   UserId=signal(0) ;
    cartlist =signal<CartElement[]>([]);
-    randomidnum =signal(Math.floor(Math.random() * 10000000));
-    Cart = signal<Cart>(null!);
+    randomidnumber =Math.floor(Math.random() * 10000000).toString();
+    Cart = signal<Cart>({
+      products: [],
+      total:0,
+      id:this.randomidnumber,
+      userId:this.defaultUser().id,
+      totalProducts: 0,
+      totalQuantity: 0
+   });
    url:string=environment.apiUrl;
   countOfItems = computed(() =>
     this.Cart().products.reduce((acc, item) => acc + item.quantity, 0)
@@ -28,35 +35,26 @@ export class CartService {
   totalProducts=computed(()=>this.Cart().products.length)
   //total price
   total=computed(()=> this.Cart().products.reduce((acc, item) => acc + (item.price*item.quantity), 0))
-  constructor() {
-    console.log(this.UserId())
-     this.Cart.set({
-      products: [],
-      total:0,
-      id:(Math.floor(Math.random() * 10000000)),
-      userId:this.defaultUser().id,
-      totalProducts: 0,
-      totalQuantity: 0
-   });
 
-    this.GetCartItemsByApi()
+  constructor() {
+
+    effect(()=>{
+       this.defaultUser=this.UserService.defaultUser
+       this.UserId.set(this.defaultUser().id)
+      this.GetCartItemsByApi()
+    }
+    )
+
+
+
+
   }
 
-    createCartForUser(userId: number) {
-
-      const newCart: Cart = {
-        userId:this.UserId(),
-        id:this.randomidnum(),
-        products: [],
-        total: 0,
-        totalProducts: 0,
-        totalQuantity: 0
-      };
-
-      this.http.post<Cart>(`${this.url}/carts`, newCart).subscribe({
+    createCartForUser() {
+      this.http.post<Cart>(`${this.url}/carts`, this.Cart()).subscribe({
         next: cart => {
-          console.log('New cart created for user:', cart);
-          this.Cart.set(cart);
+          console.log('New cart created for user:'+ cart.userId);
+          console.log('the new object is ',cart)
         },
         error: err => console.error('Error creating cart:', err)
       });
@@ -91,13 +89,21 @@ export class CartService {
        return this.http.get<Cart[]>(`${this.url}/carts`).subscribe(
           {
             next:res=>{
-              if(res){
-                this.Cart.set(res.find(cart=>cart.userId==this.UserId())??this.Cart());
+              if(this.UserId()!==0){//to ensure that will not run when firt compling and just run if the user id is updated
+               //finding the cart that want after we fetch data
+                const WantedCart=res.find(cart=>cart.userId==this.UserId());
+                if(WantedCart){
+
+                   this.Cart.set({...WantedCart})
+
+                }
+                else{
+                    this.Cart.update(perv=>({...perv,userId:this.defaultUser().id}))
+                    this.createCartForUser()
+                }
               }
-              else{
-                this.createCartForUser(this.UserId());
-              }
-            }
+            },
+            error:err=>console.log(err)
           }
         )
     }
@@ -137,13 +143,11 @@ export class CartService {
              console.log(this.Cart())
       this.Cart.update(previous=>({
           ...previous,
-          id:this.defaultUser().id,
           total:this.total(),
           totalProducts: this.totalProducts(),
           totalQuantity: this.countOfItems()
       }))
        console.log(this.Cart())
-       console.log(this.UserService.defaultUser())
        this.http.put(`${this.url}/carts/${this.Cart().id}`,this.Cart()).subscribe({
         next:res=>console.log(res),
         error(err) {

@@ -3361,7 +3361,7 @@
       "totalQuantity": 13
     },
     {
-      "id": -93,
+      "id": "-93",
       "userId": -1,
       "products": [],
       "total": 0,
@@ -3369,7 +3369,7 @@
       "totalQuantity": 0
     },
     {
-      "id": 93,
+      "id": "93",
       "userId": "1",
       "products": [],
       "total": 0,
@@ -3377,12 +3377,242 @@
       "totalQuantity": 0
     },
     {
-      "id": 0,
+      "id": "0",
       "userId": 0,
       "products": [],
       "total": 0,
       "totalProducts": 0,
       "totalQuantity": 0
+    },
+    {
+      "id": "9707798",
+      "products": [
+        {
+          "id": "3",
+          "quantity": 3,
+          "title": "Powder Canister",
+          "price": 14.99,
+          "total": 44.97,
+          "discountPercentage": 0,
+          "discountedTotal": 44.97,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "2",
+          "quantity": 5,
+          "title": "Eyeshadow Palette with Mirror",
+          "price": 19.99,
+          "total": 99.94999999999999,
+          "discountPercentage": 0,
+          "discountedTotal": 99.94999999999999,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "1",
+          "quantity": 1,
+          "title": "Essence Mascara Lash Princess",
+          "price": 9.99,
+          "total": 9.99,
+          "discountPercentage": 0,
+          "discountedTotal": 9.99,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "5",
+          "quantity": 2,
+          "title": "Red Nail Polish",
+          "price": 8.99,
+          "total": 17.98,
+          "discountPercentage": 0,
+          "discountedTotal": 17.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "6",
+          "quantity": 2,
+          "title": "Calvin Klein CK One",
+          "price": 49.99,
+          "total": 99.98,
+          "discountPercentage": 0,
+          "discountedTotal": 99.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/2.webp",
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/3.webp"
+          ],
+          "thumbnail": ""
+        }
+      ],
+      "total": 272.87,
+      "userId": 464026,
+      "totalProducts": 5,
+      "totalQuantity": 13
+    },
+    {
+      "id": "7303497",
+      "products": [],
+      "total": 0,
+      "userId": "464026",
+      "totalProducts": 0,
+      "totalQuantity": 0
+    },
+    {
+      "products": [
+        {
+          "id": "3",
+          "quantity": 3,
+          "title": "Powder Canister",
+          "price": 14.99,
+          "total": 44.97,
+          "discountPercentage": 0,
+          "discountedTotal": 44.97,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "2",
+          "quantity": 3,
+          "title": "Eyeshadow Palette with Mirror",
+          "price": 19.99,
+          "total": 59.97,
+          "discountPercentage": 0,
+          "discountedTotal": 59.97,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "1",
+          "quantity": 1,
+          "title": "Essence Mascara Lash Princess",
+          "price": 9.99,
+          "total": 9.99,
+          "discountPercentage": 0,
+          "discountedTotal": 9.99,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+          ],
+          "thumbnail": ""
+        }
+      ],
+      "total": 114.92999999999999,
+      "id": "4994238",
+      "userId": 0,
+      "totalProducts": 3,
+      "totalQuantity": 7
+    },
+    {
+      "products": [
+        {
+          "id": "3",
+          "quantity": 1,
+          "title": "Powder Canister",
+          "price": 14.99,
+          "total": 14.99,
+          "discountPercentage": 0,
+          "discountedTotal": 14.99,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "2",
+          "quantity": 6,
+          "title": "Eyeshadow Palette with Mirror",
+          "price": 19.99,
+          "total": 119.94,
+          "discountPercentage": 0,
+          "discountedTotal": 119.94,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+          ],
+          "thumbnail": ""
+        }
+      ],
+      "total": 134.93,
+      "id": "7530868",
+      "userId": 0,
+      "totalProducts": 2,
+      "totalQuantity": 7
+    },
+    {
+      "products": [
+        {
+          "id": "3",
+          "quantity": 2,
+          "title": "Powder Canister",
+          "price": 14.99,
+          "total": 29.98,
+          "discountPercentage": 0,
+          "discountedTotal": 29.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "2",
+          "quantity": 2,
+          "title": "Eyeshadow Palette with Mirror",
+          "price": 19.99,
+          "total": 39.98,
+          "discountPercentage": 0,
+          "discountedTotal": 39.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "5",
+          "quantity": 2,
+          "title": "Red Nail Polish",
+          "price": 8.99,
+          "total": 17.98,
+          "discountPercentage": 0,
+          "discountedTotal": 17.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/1.webp"
+          ],
+          "thumbnail": ""
+        },
+        {
+          "id": "6",
+          "quantity": 2,
+          "title": "Calvin Klein CK One",
+          "price": 49.99,
+          "total": 99.98,
+          "discountPercentage": 0,
+          "discountedTotal": 99.98,
+          "images": [
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/2.webp",
+            "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/3.webp"
+          ],
+          "thumbnail": ""
+        }
+      ],
+      "total": 187.92000000000002,
+      "id": "6430789",
+      "userId": 825635,
+      "totalProducts": 4,
+      "totalQuantity": 8
     }
   ],
   "userswithoutnameforaddress": [
@@ -6349,7 +6579,7 @@
       "role": "moderator"
     },
     {
-      "id": 983181,
+      "id": "983181",
       "firstname": "mohamed",
       "lastname": "omara",
       "email": "mo@gmail.com",
@@ -6360,7 +6590,7 @@
       "lastName": ""
     },
     {
-      "id": 464026,
+      "id": "464026",
       "firstName": "",
       "lastName": "",
       "maidenName": "",
@@ -6380,7 +6610,7 @@
       "confirmPassword": "19191919"
     },
     {
-      "id": 477924,
+      "id": "477924",
       "firstName": "mohamed talal ",
       "lastName": "emara",
       "maidenName": "",
@@ -6398,11 +6628,29 @@
       "firstname": "mosdf",
       "lastname": "ssdf",
       "confirmPassword": "12341234"
+    },
+    {
+      "id": 825635,
+      "firstName": "mohamed ",
+      "lastName": "gamal",
+      "maidenName": "",
+      "age": 29,
+      "gender": "male",
+      "email": "mg@gmail.com",
+      "phone": "+0000000000",
+      "password": "12341234",
+      "birthDate": "2000-05-15",
+      "image": "https://randomuser.me/api/portraits/men/45.jpg",
+      "addresses": [],
+      "bank": [],
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      "role": "user",
+      "confirmPassword": "12341234"
     }
   ],
   "orders": [
     {
-      "id": 1,
+      "id": "1",
       "order_number": "#1001",
       "user_id": 101,
       "cart_id": 501,

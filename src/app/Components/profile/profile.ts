@@ -27,19 +27,6 @@ export class Profile implements OnInit{
    Editmodepayment=signal(false);
 
     constructor(){
-    //   this.UserService.getUsers().subscribe(
-    //     res=>{
-    //   this.defaultUser.set(res[0]);
-    //   this.defaultUser().addresses?.forEach(
-    //     ad=>{
-    //       if(ad.default==true)
-    //       this.defaultAdressForThisUser.set(ad)
-    //     }
-    //   )
-
-    // }
-    //   )
-
     }
     ngOnInit(): void {
         this.PasswordChangeGroupForm = this.fb.group({

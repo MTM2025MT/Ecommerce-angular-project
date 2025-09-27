@@ -4,6 +4,8 @@ import { Loging } from './Components/loging/loging';
 import {SignUp} from '../app/Components/logingfolder/sign-up/sign-up';
 import  {SignIn} from './Components/logingfolder/sign-in/sign-in';
 import { Main } from './Components/main/main';
+import { authGuardGuard } from './guard/auth-guard-guard';
+import { Order } from './Components/order/order';
 export const routes: Routes = [
  {
   path: 'loging',
@@ -23,6 +25,7 @@ export const routes: Routes = [
  {
     path: 'main',
     component:Main,
+    canActivate:[authGuardGuard],
     children:[
  {
   path: 'home',
@@ -32,7 +35,13 @@ export const routes: Routes = [
  ,
   {
     path:'shoping-cart',
-    loadComponent: () => import('./Components/shoping-cart/shoping-cart').then(c => c.ShopingCart)
+    loadComponent: () => import('./Components/shoping-cart/shoping-cart').then(c => c.ShopingCart),
+    children:[
+      {
+        path:'order',
+        component:Order
+      }
+    ]
   }
   ,
   {

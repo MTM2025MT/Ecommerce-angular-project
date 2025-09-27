@@ -1,1 +1,35 @@
-<p>order works!</p>
+<div class="order-container">
+  <h1 class="title">🛒 Complete Your Order</h1>
+
+  <!-- Address Selector -->
+  <section class="card">
+    <h2 class="section-title">📍 Select Address</h2>
+    <select class="select-box">
+     @for(address of getUserAddresses(); track $index){
+      <option>{{address.address }} {{address.city }} {{address.country}}</option>
+     }
+      <option value="a1">Home — 123 Main St, NY</option>
+      <option value="a2">Work — 456 Park Ave, LA</option>
+    </select>
+  </section>
+
+  <!-- Payment Selector -->
+  <section class="card">
+    <h2 class="section-title">💳 Payment Method</h2>
+    <select class="select-box">
+      <option value="p1">Visa •••• 1234</option>
+      <option value="p2">Mastercard •••• 5678</option>
+    </select>
+  </section>
+
+  <!-- Notes Input -->
+  <section class="card">
+    <h2 class="section-title">📝 Order Notes</h2>
+    <textarea placeholder="Add any special notes..." rows="4"></textarea>
+  </section>
+
+  <!-- Place Order Button -->
+  <div class="actions">
+    <button class="btn primary">Place Order</button>
+  </div>
+</div>
