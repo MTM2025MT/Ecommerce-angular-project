@@ -1,3 +1,4 @@
+
 import { Injectable, OnInit ,inject, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {user} from '../models/User.type'
@@ -27,16 +28,10 @@ defaultUser =signal<user>( {
   addresses: [],
   bank:[],
   userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-  role: "user"
+  role: "user",
+  favourite:[]
 });
-// ngOnInit(): void {
-//     this.getUsers().subscribe(
-//       {
-//        next:res=>{this.defaultUser=res[0]},
-//        error:err=>console.error(err)
-//       }
-//     )
-// }
+
   getUsers(){
 
     return this.http.get<user[]>(`${this.url}/users`).pipe(
@@ -47,7 +42,6 @@ defaultUser =signal<user>( {
     )
   }
   CreateUser(userobj:user){
-
     const user={...this.defaultUser(),...userobj}
     return this.http.post(`${this.url}/users`,user);
   }
@@ -55,8 +49,14 @@ defaultUser =signal<user>( {
   PatchForUser(id:number,partialUser: Partial<user>){
   return this.http.patch<user>(`${this.url}/users/${id}`, partialUser);
   }
-  UpdatingAddressForUser(user:user){
+  UpdatingUser(user:user){
     return this.http.put(`${this.url}/users/${user.id}`, user).subscribe({
+      next:res=>console.log(res),
+      error:err=> console.log(err)
+  })
+  }
+  updatinguser(){
+    return this.http.put(`${this.url}/users/${this.defaultUser().id}`, this.defaultUser()).subscribe({
       next:res=>console.log(res),
       error:err=> console.log(err)
   })
@@ -93,6 +93,23 @@ defaultUser =signal<user>( {
 
   }
    return domatch
+  }
+  favouritebtn(id:string){
+    const currentFavourites = this.defaultUser().favourite;
+    if(!currentFavourites){
+      return console.error("there is something went wrong in importing the favourite ")
+    }
+    const index = currentFavourites.indexOf(id);
+
+    if(index === -1){
+      // Add to favourites
+      this.defaultUser.update(prev => ({...prev, favourite: [...prev.favourite, id]}));
+    }
+    else{
+      // Remove from favourites
+      const newFavourite = currentFavourites.filter(prev => prev !== id);
+      this.defaultUser.update(prev => ({...prev, favourite: newFavourite}));
+    }
   }
 
 }

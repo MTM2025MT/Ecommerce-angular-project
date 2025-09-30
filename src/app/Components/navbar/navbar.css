@@ -7,21 +7,38 @@ header {
   position: relative;
   z-index: 2;
 }
-
+.Navbar{
+  position: sticky;
+   top: 0;
+    z-index: 3;
+}
 nav{
   padding-left: 7%;
   padding-right: 7%;
   display: flex;
-
+  background-color: #f0f2f3;
   justify-content: space-between;
   align-items: center;
   height: 6rem;
 }
-.profilIcon{
-    font-size: 50px;
-    color: aliceblue;
-    cursor: pointer;
+.NavbarIcons{
+  min-width: 30px;
+  height: 30px;
+  font-size: 17px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: rgb(8, 13, 59);
 }
+/* .NavbarIcons i{
+
+
+} */
+
 
 .nav-right{
   display: flex;
@@ -36,10 +53,10 @@ nav{
   text-decoration: none;
 }
 
-.nav-right p{
+/* .nav-right p{
   color: #55524d;
   font-size: 1.6rem;
-}
+} */
 
 .nav-right button{
   height: 70px;
@@ -58,9 +75,6 @@ color: aliceblue;
 box-shadow:#ff5900 0px 0px 700px;
 }
 
-.nav-right a{
-text-decoration: none;
-}
 
 .nav-right a:visited{
 text-decoration: none;
@@ -72,28 +86,30 @@ position: relative;
 z-index: 1;
 }
 .CartIcon{
-    position: relative;
-    font-size: 50px;
-    color: aliceblue;
-    cursor: pointer;
+ align-items: center;
+ justify-content:space-between;
+ gap: 10px;
+ width:150px;
+ padding: 5px;
 }
-.CartIcon::after{
-  content: attr(data-after);
-    font-size: 20px;
-    font-weight: bold;
-    display: var(--DisplayValue, none);
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 60%;
-    top: -1px;
-    right: -15px;
-    color: white;
-    background-color: #fad4bf;
-    position: absolute;
-
-
+.CartIcon span{
+  font-size: 10px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  text-align: center;
+  height: 15px;
+  border-radius: 60%;
+  color: white;
+  background-color: #4ca780;
+}
+.CartIcon p{
+  font-size: 10px;
+  margin: 0;
+}
+.CartIcon i{
+  margin: 0px;
 }
 .main-img-container{
   position: relative;
@@ -137,3 +153,264 @@ z-index: 1;
   pointer-events: none;
 }
 /* Header End*/
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+.background-circle {
+  position: absolute;
+  right: -10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 900px;
+  height: 900px;
+  background: #e8ebed;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  flex: 1;
+  max-width: 600px;
+}
+
+.welcome-text {
+  font-size: 0.875rem;
+  letter-spacing: 2px;
+  color: #64748b;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+}
+
+.shop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #14b8a6;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shop-btn:hover {
+  background: #0d9488;
+  transform: translateX(5px);
+}
+
+.shop-btn::after {
+  content: '→';
+  font-size: 1.25rem;
+}
+
+.image-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.chair-image {
+  position: relative;
+  z-index: 3;
+  max-width: 600px;
+  width: 100%;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 80px;
+  right: 100px;
+  background: white;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  z-index: 4;
+}
+
+.discount-percentage {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ef4444;
+  line-height: 1;
+}
+
+.discount-text {
+  font-size: 0.875rem;
+  color: #1e293b;
+  margin-top: 0.25rem;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #14b8a6;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.carousel-control-prev {
+  left: 2rem;
+}
+
+.carousel-control-next {
+  right: 2rem;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: #14b8a6;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.carousel-indicators button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-indicators button.active {
+  background: #1e293b;
+  width: 32px;
+  border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .background-circle {
+    width: 700px;
+    height: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .content {
+    max-width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .background-circle {
+    width: 500px;
+    height: 500px;
+    right: -30%;
+  }
+
+  .discount-badge {
+    top: 40px;
+    right: 40px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .discount-percentage {
+    font-size: 2rem;
+  }
+
+  .carousel-control-prev {
+    left: 1rem;
+  }
+
+  .carousel-control-next {
+    right: 1rem;
+  }
+}

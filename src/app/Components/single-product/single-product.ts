@@ -18,11 +18,11 @@ export class SingleProduct implements OnInit {
   router =inject(Router);
   ProductService=inject(ProductService)
   CartService=inject(CartService);
-  defuletproduct:Product=this.ProductService.defuletproduct
   wantedquentity=signal(1);
-  productItem=signal<Product>(this.defuletproduct)
+  productItem = signal<Product | undefined>(undefined)
 
   imageurl:string='foto.jpg';
+
       get quantity() {
       return this.wantedquentity();
     }
@@ -35,22 +35,32 @@ export class SingleProduct implements OnInit {
    }
 
   getProductById() {
-
     this.activatedroute.params.subscribe(param=>{
        const ProductId=param['id']
-        this.ProductService.getproduct(ProductId).subscribe(product => {
-          this.productItem.set(product ? product[0] : this.defuletproduct);
+       this.ProductService.getproduct(Number(ProductId)).subscribe({
+        next: product => {
+          if (product === undefined) {
+            console.error("product is undefined");
+            return;
+          }
+          this.productItem.set(product);
           console.log(this.productItem());
-        });
-      }
+        },
+        error: err => {
+          console.error("Error fetching product:", err);
+        }
+      });
 
+    }
     )
-
   }
   AddToCard(){
-    this.CartService.addToCart(this.productItem(),this.quantity);
-    this.router.navigate(['/shoping-cart']);
-  }//you should ask if the sended will be signal there or the value of the signal
+    const product = this.productItem();
+    if (product) {
+      this.CartService.addToCart(product, this.quantity);
+      this.router.navigate(['/shoping-cart']);
+    }
+  }
   incrementQuantity() {
     this.quantity++;
   }
@@ -60,7 +70,11 @@ export class SingleProduct implements OnInit {
     }
   }
   stars = computed(() => {
-  const rounded = Math.round(this.productItem().rating.rate);
-  return Array.from({ length: 5 }, (_, i) => i + 1 <= rounded);
+  const product = this.productItem();
+  if (product) {
+    const rounded = Math.round(product.rating?.rate ?? 0);
+    return Array.from({ length: 5 }, (_, i) => i < rounded);
+  }
+  return [0]
 });
 }

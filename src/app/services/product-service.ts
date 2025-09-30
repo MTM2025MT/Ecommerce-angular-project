@@ -9,19 +9,6 @@ import { environment } from '../../environments/environment';
 export class ProductService {
   http:HttpClient=inject(HttpClient);
   lastFetchTime=0;
-    defuletproduct:Product= {
-    id:0,
-    title:'not found',
-    price:0,
-    description:'not found',
-    category:'not found',
-    images:['not found'],
-  discountPercentage: 0,
-  rating: {rate: 0, count: 0},
-  stock: 0,
-  brand: "not found"
-
-    }
     url:string=environment.apiUrl;
    private readonly FETCH_INTERVAL = 60 * 1000;
    private productsSignal = signal<Product[]>([]);
@@ -45,11 +32,9 @@ export class ProductService {
       return of(this.productsSignal());
   }
 }
-   getproduct(Id: number): Observable<Product[]> {
-
-
+   getproduct(Id: number): Observable<Product> {
     const product=  this.getproducts().pipe(
-      map((products: Product[]) =>  products.filter((product: Product) => product.id == Id)),
+      map((products: Product[]) =>  products.find((product: Product) => product.id == Id)),
       retry(
         {
           count: 3, // Number of retry attempts
@@ -62,10 +47,20 @@ export class ProductService {
           }
         }
       )
+    ).pipe(
+      map(product => {
+        if (product === undefined) {
+          throw new Error('Product not found');
+        }
+        return product;
+      })
     );
     return product;
   }
 
+  getCategories(){
+   return ["beauty","furniture","groceries"]
+  }
  donow ():boolean {
   const now = Date.now();
 

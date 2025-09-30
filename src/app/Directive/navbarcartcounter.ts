@@ -15,7 +15,7 @@ export class Navbarcartcounter implements OnInit {
    displaycounter= effect(()=>{
       const count=this.CartService.countOfItems();
       this.element.nativeElement.style.setProperty('--DisplayValue',count > 0 ? 'flex' : 'none');
-      this.element.nativeElement.setAttribute('data-after',count.toString());
+      this.element.nativeElement.textContent = count.toString();
 
      });
 

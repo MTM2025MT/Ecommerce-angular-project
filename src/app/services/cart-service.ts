@@ -16,7 +16,7 @@ export class CartService {
   cartservice=inject(OrderingProcess)
    UserService=inject(UserService)
    defaultUser=this.UserService.defaultUser
-   UserId=signal(0) ;
+   UserId=signal(0);
    cartlist =signal<CartElement[]>([]);
     randomidnumber =Math.floor(Math.random() * 10000000).toString();
     Cart = signal<Cart>({
@@ -42,10 +42,11 @@ export class CartService {
        this.defaultUser=this.UserService.defaultUser
        this.UserId.set(this.defaultUser().id)
       this.GetCartItemsByApi()
+      console.log("GetCartItemsByApi has runed ")
     }
     )
 
-
+   console.log("GetCartItemsByApi has runed at constructor ")
 
 
   }
@@ -89,13 +90,11 @@ export class CartService {
        return this.http.get<Cart[]>(`${this.url}/carts`).subscribe(
           {
             next:res=>{
+              const WantedCart=res.find(cart=>cart.userId==this.UserId());
               if(this.UserId()!==0){//to ensure that will not run when firt compling and just run if the user id is updated
                //finding the cart that want after we fetch data
-                const WantedCart=res.find(cart=>cart.userId==this.UserId());
                 if(WantedCart){
-
                    this.Cart.set({...WantedCart})
-
                 }
                 else{
                     this.Cart.update(perv=>({...perv,userId:this.defaultUser().id}))
@@ -148,6 +147,7 @@ export class CartService {
           totalQuantity: this.countOfItems()
       }))
        console.log(this.Cart())
+       console.log("the  cart is saved")
        this.http.put(`${this.url}/carts/${this.Cart().id}`,this.Cart()).subscribe({
         next:res=>console.log(res),
         error(err) {
@@ -155,8 +155,24 @@ export class CartService {
         },
       })
     }
-    DeleteTheCart(){
-      return this.http.delete(`${this.url}/carts/${this.Cart()?.userId}`)
+    async DeleteTheCart(){
+
+        await this.http.delete(`${this.url}/carts/${this.Cart().id}`).subscribe({
+        next:res=>console.log(res),
+        error(err) {
+            console.log(err)
+        },
+      })
+      this.randomidnumber =Math.floor(Math.random() * 10000000).toString();
+      this.Cart.set({
+      products: [],
+      total:0,
+      id:this.randomidnumber,
+      userId:this.defaultUser().id,
+      totalProducts: 0,
+      totalQuantity: 0
+      })
+      this.GetCartItemsByApi()
     }
 
 }

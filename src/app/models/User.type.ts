@@ -13,7 +13,7 @@ export type user = {
   image?: string;
   addresses: Address[];
   bank: payment[];
-
+  favourite:string[]
   userAgent: string;
   role: "admin" | "user" | "moderator"; // restrict to known roles
 
@@ -38,6 +38,7 @@ export type Address={
     country: string;
 }
 export type payment={
+    id:string;
     cardExpire: string;
     cardNumber: string;
     cardType?: string;
@@ -46,6 +47,7 @@ export type payment={
     cvv:number;
     name:string
 }
+
     /*
     {
 

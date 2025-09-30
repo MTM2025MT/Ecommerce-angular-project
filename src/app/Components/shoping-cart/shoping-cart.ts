@@ -1,5 +1,5 @@
 import { retry } from 'rxjs';
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { CartElement } from '../../models/CartElement.type';
 import { CartService } from '../../services/cart-service';
@@ -13,21 +13,23 @@ import { RouterOutlet,RouterLink } from '@angular/router';
   templateUrl: './shoping-cart.html',
   styleUrl: './shoping-cart.css'
 })
-export class ShopingCart implements OnInit,OnDestroy{
+export class ShopingCart {
    imageurl='foto.jpg';
     Userservice=inject(UserService)
   shopingservice=inject(CartService);
   cartitems=signal<CartElement[]>([]);
   total=this.shopingservice.total;
-  UserId=signal(1)
-  ngOnInit(): void {
-    const items=this.shopingservice.Cart().products
-    this.cartitems.set(items);
+  UserId=signal(0)
+  items=signal(this.shopingservice.Cart().products)
+  constructor(){
+    effect(()=>{
+     let items=this.shopingservice.Cart().products
+     this.items.set(items)
+    }
+    )
     this.shopingservice.SaveShopingCart()
    }
-   ngOnDestroy(): void {
-       this.shopingservice.SaveShopingCart()
-   }
+
 
    removeitem(item:CartElement){
     this.shopingservice.RemoveFromCart(item);

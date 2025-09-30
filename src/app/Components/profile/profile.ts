@@ -131,10 +131,10 @@ export class Profile implements OnInit{
 
             this.defaultUser.update(user => ({
               ...user,
-              bank: [...user.bank, this.paymentGroupForm.value]
+              bank: [...user.bank, {...this.paymentGroupForm.value,id:Math.floor(Math.random() * 10000000).toString()}]
             }));
           }
-        this.UserService.UpdatingAddressForUser(this.defaultUser())
+        this.UserService.UpdatingUser(this.defaultUser())
         this.paymentcompenenttoggle();
        }else{
 
@@ -152,7 +152,7 @@ export class Profile implements OnInit{
         }
        ))
 
-       this.UserService.UpdatingAddressForUser(this.defaultUser())
+       this.UserService.UpdatingUser(this.defaultUser())
     }
    MustMatchPassWord: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
         const password = control.get('NewPassword')?.value;
@@ -222,7 +222,7 @@ export class Profile implements OnInit{
               addresses:[...user.addresses,this.AddingAddressGroupForm.value]
             }
           ))
-          this.UserService.UpdatingAddressForUser(this.defaultUser())
+          this.UserService.UpdatingUser(this.defaultUser())
         }
         else{
       const editedaddress:Address=this.AddingAddressGroupForm.getRawValue() as Address;
@@ -242,7 +242,7 @@ export class Profile implements OnInit{
           addresses:addresses
          }))
 
-          this.UserService.UpdatingAddressForUser(this.defaultUser())
+          this.UserService.UpdatingUser(this.defaultUser())
         }
       }
       else{
@@ -259,7 +259,7 @@ export class Profile implements OnInit{
         }
        ))
 
-       this.UserService.UpdatingAddressForUser(this.defaultUser())
+       this.UserService.UpdatingUser(this.defaultUser())
     }
     SetDefualt(addressitem:Address ){
        const AddressArray=this.defaultUser().addresses.map(address=>
@@ -278,7 +278,7 @@ export class Profile implements OnInit{
        })
        )
 
-      this.UserService.UpdatingAddressForUser(this.defaultUser())
+      this.UserService.UpdatingUser(this.defaultUser())
 
     }
 

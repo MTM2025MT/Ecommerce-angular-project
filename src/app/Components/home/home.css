@@ -36,16 +36,27 @@
   color: green;
   margin-bottom: 10px;
 }
-
+.bottom-card{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 10px;
+  width: 100%;
+}
 .add-to-cart {
   background-color: rgb(62, 62, 238);
   color: white;
+  display: flex;
   border: none;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
-  width: 50%;
-  margin-left: 25%;
+  height: 80%;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+}
+.add-to-cart i{
+  font-size: 15px;
 }
 .add-to-cart p{
   margin:0;
@@ -64,3 +75,26 @@
   right: 10px;
   border-radius: 50%;
 }
+.featured-products {
+  text-align: center;
+  overflow: hidden;
+}
+
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease; /* 👈 smooth slide */
+  width: 100%;
+}
+
+.product-card {
+  flex: 0 0 calc(100% / 4); /* 4 per view */
+  box-sizing: border-box;
+  padding: 12px;
+  text-align: center;
+}
+
