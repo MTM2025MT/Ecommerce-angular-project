@@ -34,7 +34,7 @@ LoginginGroupForm:FormGroup;
       next:res=>console.log(res),
       error:err=>console.error(err)
      })
-     this.LoginginGroupForm.reset()
+     this.LoginginGroupForm.reset();
      console.log(this.UserService.defaultUser())
 
    }

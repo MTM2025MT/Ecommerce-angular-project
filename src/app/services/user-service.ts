@@ -13,6 +13,7 @@ export class UserService {
     router=inject(Router)
     http:HttpClient=inject(HttpClient);
     url=environment.apiUrl
+    userdidsigned=signal(false)
 defaultUser =signal<user>( {
   id: 0,
   firstName: "",
@@ -65,7 +66,9 @@ defaultUser =signal<user>( {
 
    const domatch=  this.http.get<user[]>(`${this.url}/users`).pipe(
     map(users => {
-        return users.some(user => user.email === email && user.password === password);
+      console.log(users)
+       console.log(email+"   "+password)
+        return users.some(user => user.email == email && user.password == password);
     })
    )
   if(domatch){
@@ -80,6 +83,7 @@ defaultUser =signal<user>( {
     next:res=>{
       if(res !=undefined){
       this.defaultUser.set(res)
+      this.userdidsigned.update(v=>!v)
       console.log("the user is now "+this.defaultUser().firstName+"and it is id is "+this.defaultUser().id)
        this.router.navigate(['/main'])
       }

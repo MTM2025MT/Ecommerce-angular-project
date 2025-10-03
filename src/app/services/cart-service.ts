@@ -91,7 +91,7 @@ export class CartService {
           {
             next:res=>{
               const WantedCart=res.find(cart=>cart.userId==this.UserId());
-              if(this.UserId()!==0){//to ensure that will not run when firt compling and just run if the user id is updated
+              if(this.UserService.userdidsigned()){//to ensure that will not run when firt compling and just run if the user id is updated
                //finding the cart that want after we fetch data
                 if(WantedCart){
                    this.Cart.set({...WantedCart})

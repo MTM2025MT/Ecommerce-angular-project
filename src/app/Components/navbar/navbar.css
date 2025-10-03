@@ -153,7 +153,7 @@ z-index: 1;
   pointer-events: none;
 }
 /* Header End*/
-
+/*
 .carousel {
   position: relative;
   width: 100%;
@@ -413,4 +413,4 @@ h1 {
   .carousel-control-next {
     right: 1rem;
   }
-}
+} */
