@@ -27,4 +27,6 @@ export class Main {
     this.CartService.SaveShopingCart();
     this.UserService.updatinguser()
   }
+
+
 }

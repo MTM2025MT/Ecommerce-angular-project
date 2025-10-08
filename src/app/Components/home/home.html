@@ -1,5 +1,72 @@
+<section style="display: flex;flex-direction: column;align-items: center;justify-content: flex-end;margin:10px 0 ;">
+ <div style="width:80%;" class="best20div">
+  <div style="display: flex;justify-content:flex-start;align-items: center;height: 50px;">
+    <h1 style="font-size: 30px;">
+      best 20 product
+    </h1>
+  </div>
+  <p-carousel
+  [value]=" productlist()|filterbestwenty"
+  [numVisible]="4"
+  [numScroll]="1"
+  [circular]="true"
+  [autoplayInterval]="30000"
+  styleClass="custom-carousel"
 
-  <div class="product-grid">
+  >
+
+  <ng-template class="product-grid-best20" pTemplate="item" let-product>
+  <div class=" main-img-container ">
+    <div  class="product-item product-item-best20" [attr.data-product-id]="product.id">
+
+      <img  [routerLink]="`/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.images[0]?product.images[0]:imageurl" alt="Product Image">
+        @if(favourite().includes((product.id.toString()))){
+          <button style="color:red;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+        @else {
+          <button style="color: gray;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+      <div class="bottom-card">
+        <div class="price-title" >
+          <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.title}}</p>
+          <span class="product-price-best20">${{ product.price }}</span>
+        </div>
+        <button (click)="addToCart(product)" class="add-to-cart"><i class="bi bi-cart2"></i></button>
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>
+</p-carousel>
+ </div>
+
+ <div style="width:90%;" class="catagories">
+  <div style="display: flex;justify-content:flex-start;align-items: center;height: 50px;">
+    <h1 style="font-size: 30px;">
+      best 20 product
+    </h1>
+  </div>
+  <p-carousel
+  [value]=" productlist()|filterbestwenty"
+  [numVisible]="5"
+  class="blurCarousel"
+
+>
+  <ng-template pTemplate="item" let-category let-i="index">
+    <div class="carousel-item" [class.active]="isActive(i)">
+      <!-- your item template -->
+      <img [src]="category.image" alt="{{ category.name }}">
+      <h4>{{ category.name }}</h4>
+    </div>
+  </ng-template>
+</p-carousel>
+
+ </div>
+
+
+
+  <div style="width: 100%;" class="product-grid">
   @for (product of productlist() | filterPipe:searchText; track $index) {
     <div  class="product-item" [attr.data-product-id]="product.id">
       <img [routerLink]="`/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.images[0]?product.images[0]:imageurl" alt="Product Image">
@@ -17,6 +84,7 @@
     </div>
   }
   </div>
+</section>
 
 
 

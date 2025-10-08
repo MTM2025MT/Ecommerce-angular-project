@@ -10,10 +10,11 @@ import {OnDestroy } from '@angular/core';
 import { SharedSearchvalue } from '../../services/shared-searchvalue';
 import { FilterPipePipe } from '../../pipes/filter-pipe-pipe';
 import { CommonModule } from '@angular/common';
-
+import { CarouselModule } from 'primeng/carousel';
+import { FilterbestwentyPipe } from '../../pipes/filterbestwenty-pipe';
 @Component({
   selector: 'app-home',
-  imports: [FilterPipePipe, RouterLink,CommonModule],
+  imports: [FilterPipePipe, RouterLink,CommonModule,CarouselModule,FilterbestwentyPipe],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
@@ -69,5 +70,19 @@ export class Home implements OnInit{
       this.currentIndex -= this.pageSize;
     }
   }
+  products = [
+    { name:'Makeup',Text: 'Best Grocery Collection For Your Daily Needs.', image: 'makeup2.png' },
+    { name:'FreshMart',Text: 'Your Trusted Source for Fresh & Quality Products.', image: 'image.png' },
+    { name:'Makeup2',Text: 'Best Grocery Collection For Your Daily Needs', image: 'grocery.png' },
+  ];
+  // currentIndex = 0; // carousel page index (PrimeNG updates this)
+   numVisible = 5;   // same as your [numVisible] input
+
+isActive(i: number): boolean {
+  // find middle item indexes (3 visible = center +/- 1)
+  const center = this.currentIndex * this.numVisible + Math.floor(this.numVisible / 2);
+  return Math.abs(i - center) <= 1; // keep 3 in focus
+}
+
 }
 

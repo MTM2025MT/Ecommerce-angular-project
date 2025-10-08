@@ -6,6 +6,8 @@ header {
   width: 100%;
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
 }
 .Navbar{
   position: sticky;
@@ -113,33 +115,44 @@ z-index: 1;
 }
 .main-img-container{
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #f0f2f3;
+  padding:0 15% ;
 }
 
 .main-img{
-  width: 100%;
+  width: 70% !important;
   height: 35rem;
   object-fit: cover;
 }
 
 .main-title{
-  position: absolute;
+  width: 30%;
   top: 20%;
   left: 10%;
-  color: white;
+  color: #272343;
 }
 
 .main-title p{
-  margin-top: 3rem;
-  text-shadow: #000 5px 5px 10px;
+
+}
+.product-image{
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .main-title .title{
-  font-size: 3rem;
-  text-shadow: #000 5px 5px 10px;
+  font-size: 1rem;
+
 }
 
 .main-title .paragraph{
   font-size: 2rem;
+  font-weight: 500;
 }
 
 .main-img-container::after {
@@ -152,6 +165,55 @@ z-index: 1;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6); /* Inner shadow */
   pointer-events: none;
 }
+.container-icon-advantages{
+  width:90%;
+  height: 90px;
+  margin: -50px 5% 0 5%;;
+  padding:1% 2%;
+   display: flex;
+   align-items: center;
+   background-color: #f1f1f1;
+   z-index: 50;
+   border-radius: 7px;
+   justify-content: space-between;
+
+}
+.icon-advantage{
+ display: flex;
+ width:22%;
+ gap:10px;
+ height: 25px;
+}
+/* .icon-advantage img{
+
+} */
+.icon-advantage-text{
+
+  display: flex;
+  flex-direction: column;
+}
+.icon-advantage-text p{
+  font-size: 9px;
+  width: 100%;
+  margin: 0;
+  display: inline-block;
+}
+
+
+
+
+
+/*
+.p-carousel - Main container
+.p-carousel-content - Content wrapper
+.p-carousel-container - Inner container
+.p-carousel-items-container - Items container
+.p-carousel-item - Individual carousel item
+.p-carousel-prev - Previous button
+.p-carousel-next - Next button
+.p-carousel-indicators - Indicator dots container
+.p-carousel-indicator - Individual indicator */
+
 /* Header End*/
 /*
 .carousel {

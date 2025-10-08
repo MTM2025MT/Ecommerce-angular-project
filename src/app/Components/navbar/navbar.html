@@ -20,113 +20,57 @@
     </nav>
     <header id="home">
         <section class="image-section">
-            <div class="main-img-container">
-                <img class="main-img" [src]="image" alt="main-img">
-                <div class="main-title">
-                    <p class="title">Welcome to E-commerce</p>
-                    <p class="paragraph">welcome where you can buy whataver you want</p>
-                </div>
-            </div>
+          <p-carousel
+             [value]="products"
+             [numVisible]="1"
+             [numScroll]="1"
+             [circular]="true"
+             [autoplayInterval]="30000"
+             styleClass="custom-carousel"
 
-            <!-- <div id="furnitureCarousel" class="carousel">
-              <div class="carousel-indicators">
-                <button
-                  *ngFor="let slide of slides; let i = index"
-                  type="button"
-                  [class.active]="isActive(i)"
-                  [attr.aria-current]="isActive(i) ? 'true' : null"
-                  [attr.aria-label]="'Slide ' + (i + 1)"
-                  (click)="goToSlide(i)">
-                </button>
+             >
+           <ng-template pTemplate="item" let-product>
+             <div class="product-item main-img-container">
+              <div class="main-title">
+                <p class="title">Welcome to E-commerce</p>
+                <p class="paragraph">{{product.Text}}</p>
               </div>
+               <div class="product-image">
+                 <img [src]="product.image" class="main-img" [alt]="product.name" style=" object-fit: contain;" />
+               </div>
 
-              <div class="carousel-inner">
-                <div
-                  *ngFor="let slide of slides; let i = index"
-                  class="carousel-item"
-                  [class.active]="isActive(i)">
-
-                  <div class="hero-section">
-                    <div class="background-circle"></div>
-
-                    <div class="container">
-                      <div class="content">
-                        <p class="welcome-text">{{ slide.welcomeText }}</p>
-                        <h1>{{ slide.title }}</h1>
-                        <button class="shop-btn">Shop Now</button>
-                      </div>
-
-                      <div class="image-section">
-                        <div class="chair-image">
-                          <svg width="600" height="700" viewBox="0 0 600 700" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <ellipse cx="300" cy="280" rx="140" ry="40" [attr.fill]="slide.chairColor.base"/>
-                            <path d="M 160 280 L 180 400 L 420 400 L 440 280 Z" [attr.fill]="slide.chairColor.seat"/>
-                            <path d="M 200 250 Q 200 150 250 120 L 350 120 Q 400 150 400 250 Z" [attr.fill]="slide.chairColor.back1"/>
-                            <path d="M 210 250 Q 210 160 250 135 L 350 135 Q 390 160 390 250 Z" [attr.fill]="slide.chairColor.back2"/>
-                            <path d="M 160 280 Q 140 260 140 240 L 140 220 Q 145 210 160 220 L 180 250 Z" [attr.fill]="slide.chairColor.arm"/>
-                            <path d="M 440 280 Q 460 260 460 240 L 460 220 Q 455 210 440 220 L 420 250 Z" [attr.fill]="slide.chairColor.arm"/>
-                            <rect x="190" y="400" width="20" height="250" [attr.fill]="slide.chairColor.leg1" rx="10"/>
-                            <rect x="390" y="400" width="20" height="250" [attr.fill]="slide.chairColor.leg1" rx="10"/>
-                            <rect x="240" y="400" width="18" height="240" [attr.fill]="slide.chairColor.leg2" rx="9"/>
-                            <rect x="342" y="400" width="18" height="240" [attr.fill]="slide.chairColor.leg2" rx="9"/>
-                            <ellipse cx="300" cy="285" rx="120" ry="35" [attr.fill]="slide.chairColor.cushion" opacity="0.6"/>
-                            <path d="M 220 290 Q 300 310 380 290" stroke="#3a3a3a" stroke-width="3" fill="none"/>
-                          </svg>
-                        </div>
-
-                        <div class="discount-badge">
-                          <span class="discount-percentage">{{ slide.discount }}</span>
-                          <span class="discount-text">Discount</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <button
-                class="carousel-control-prev"
-                type="button"
-                (click)="prevSlide()">
-                <span aria-hidden="true">←</span>
-              </button>
-
-              <button
-                class="carousel-control-next"
-                type="button"
-                (click)="nextSlide()">
-                <span aria-hidden="true">→</span>
-              </button>
-            </div> -->
-
-
-
+             </div>
+           </ng-template>
+         </p-carousel>
         </section>
-        <div id="carouselExampleIndicators" class="carousel slide">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <section class="container-icon-advantages">
+          <div class="icon-advantage">
+            <img src="icons-advantages/24-hours.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>Every week new sales
+             </div>
           </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="foto.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="fototwo.jpg" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="foto.jpg" class="d-block w-100" alt="...">
-            </div>
+          <div class="icon-advantage">
+            <img src="icons-advantages/box.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>100% Secure Payment Method
+             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-
+          <div class="icon-advantage">
+            <img src="icons-advantages/shield.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>100% Free for all orders
+             </div>
+          </div>
+          <div class="icon-advantage">
+            <img src="icons-advantages/delivery-truck.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>We care your experiences
+             </div>
+          </div>
+        </section>
     </header>
