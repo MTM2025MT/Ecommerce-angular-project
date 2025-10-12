@@ -1,0 +1,209 @@
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f3f6f9; color:#0f172a}
+
+.wrap{min-height:100%; display:flex; align-items:flex-start; justify-content:center; padding:32px 18px 80px}
+.container{width:100%; max-width:900px;position: relative;}
+
+.card{background:#ffffff; border-radius:14px; padding:18px; box-shadow:0 6px 20px rgba(2,6,23,0.06); margin-bottom:18px}
+
+/* Header */
+.profile-header{display:flex; gap:16px; align-items:center}
+.avatar{width:88px; height:88px; border-radius:999px; background:linear-gradient(135deg,#e2e8f0,#c7d2fe); display:flex; align-items:center; justify-content:center; font-weight:700; color:#0f172a}
+.profile-meta h1{margin:0; font-size:20px}
+.profile-meta p{margin:4px 0 0; color:#6b7280; font-size:14px}
+.profile-actions{display:flex; gap:10px; margin-top:12px}
+
+/* Buttons */
+.btn{appearance:none; border:1px solid rgba(2,6,23,0.06); padding:8px 12px; border-radius:10px; cursor:pointer; background:transparent}
+.btn:focus{outline:3px solid rgba(37,99,235,0.12)}
+.btn.primary{background:#2563eb; color:white; border:none}
+.btn.danger{background:#ef4444; color:white; border:none}
+.btn.sm{padding:6px 10px; font-size:14px}
+
+/* Forms */
+.grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+.grid .full{grid-column:1/-1}
+label{display:block; font-size:13px; margin-bottom:6px; color:#111827}
+input[type=text], input[type=email], input[type=password]{width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e6e9ef; font-size:14px}
+
+/* Section title */
+.section-title{display:flex; align-items:center; gap:10px; font-weight:600; font-size:16px; margin-bottom:12px;justify-content: space-between;}
+.section-title-payment{display:flex; align-items:center; gap:10px; font-weight:600; font-size:16px; margin-bottom:12px;justify-content: space-between;}
+/* Lists */
+.list{display:flex; flex-direction:column; gap:10px}
+.list-item{display:flex; justify-content:space-between; align-items:center; padding:12px; border-radius:10px; border:1px solid #eef2f7; background:#fbfdff}
+.status{font-weight:600}
+.status.delivered{color:#16a34a}
+.status.processing{color:#f59e0b}
+.status.shipped{color:#2563eb}
+
+/* Password strength */
+.pw-meter{height:8px; border-radius:6px; background:#eef2ff; overflow:hidden; margin-top:8px}
+.pw-fill{height:100%; width:0%; background:linear-gradient(90deg,#fb923c,#4ade80); transition:width .18s ease}
+.pw-text{font-size:13px; color:#6b7280; margin-top:6px}
+
+/* Chips */
+.chip{padding:8px 12px; border-radius:10px; background:#fbfbff; border:1px solid #eef2f7}
+.AddingAddressForm{
+ height: 30px;
+ display: none;
+}
+.AddingAddressForm input{
+  width: 20%;
+  padding: 5px;
+}
+/* Responsive */
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .profile-header{flex-direction:row}
+}
+.AddingAddressForm {
+  display: block; /* show form when needed */
+  margin-top: 16px;
+  height: 170px;
+}
+
+.form-grid {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  height: 100%;
+
+}
+
+
+.form-grid div label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.form-grid div input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+  font-size: 14px;
+}
+.Saved-Addresses{
+  display: flex;
+  flex-direction: column;
+}
+.AddressForm-btn{
+  width: 100px;
+    margin: 25px;
+    border: 2px red;
+    background-color: green;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.payment-form {
+  position: absolute;
+  max-width: 450px;
+  width: 100%;
+     bottom: 0%;
+    left: 25%;
+    padding: 25px;
+    box-shadow: 0px 5px 15px 4px gray;
+    border-radius: 20px;
+    background-color: #e6e6e6;
+}
+
+.payment-form .form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.payment-form .form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+ .payment-form label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.payment-form input[type="text"] {
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.payment-form input[type="text"]:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.payment-form .card-icons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+ .payment-form .card-icon {
+  width: 40px;
+  height: 25px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #6b7280;
+}
+
+ .payment-form .submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4f46e5 0%, #3a82ed 100%);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.closepaymentcompenent{
+  position: absolute;
+    right: 25px;
+    top: 10px;
+    cursor: pointer;
+    /* border-radius: 33%; */
+    border: 0px;
+    background-color: transparent;
+}
+ .payment-form .submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+}
+
+@media (max-width: 480px) {
+  .payment-form .form-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+/* Responsive: stack into 1 column on small screens */
+@media (max-width: 760px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

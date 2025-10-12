@@ -1,0 +1,466 @@
+<div class="wrap">
+  <div class="container">
+
+    <!-- Profile Header -->
+    <section class="card profile-header" aria-labelledby="profileTitle">
+      <div class="avatar" aria-hidden="true">{{ defaultUser().firstName }}{{ defaultUser().lastName }}</div>
+      <div style="flex:1">
+        <div class="profile-meta">
+          <h1 id="profileTitle">{{defaultUser().firstName +defaultUser().lastName}}</h1>
+          <p id="profileEmail">{{defaultUser().email}}</p>
+        </div>
+        <div class="profile-actions">
+          <button type="button" class="btn" onclick="onEditProfile()">✎ Edit Profile</button>
+          <button type="button" class="btn danger" onclick="onLogout()">⎋ Logout</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Account Details -->
+    <section class="card" aria-labelledby="accountTitle">
+      <h2 id="accountTitle" class="section-title">Account Details</h2>
+      <form [formGroup]="AccountdetailsGroupForm" id="accountForm" onsubmit="AccountdetailsGroupFormsubmit()">
+        <div class="grid">
+          <div>
+            <label for="fullName">Full Name</label>
+            <input  id="fullName" name="fullName" type="text"  >
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input formControlName="email" id="emailInput" name="email" type="email" value="{{ defaultUser().email }}">
+          </div>
+
+          <div>
+            <label for="phone">Phone Number</label>
+            <input formControlName="phone" id="phone" name="phone" type="text" value="{{ defaultUser().phone }}">
+          </div>
+          <div>
+            <label for="address">Address</label>
+            <input formControlName="address" id="address" name="address"  type="text">
+          </div>
+
+          <div class="full" style="display:flex; justify-content:flex-end; margin-top:6px">
+            <button type="button" class="btn primary" onclick="onSaveAccountDetails()">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- Change Password -->
+    <section  class="card" aria-labelledby="passwordTitle">
+      <div (click)="passwordbolckopenertoggle()" class="section-title">
+      <h2  class="section-title" id="passwordTitle" >🔒 Change Password</h2>
+       <i  class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+       </div>
+      <form [formGroup]="PasswordChangeGroupForm" appOpenColseActionDirective [valueOflock]="PasswordCompenentLock()" style="max-width:700px">
+        <label for="currentPassword">Current Password</label>
+        <input formControlName="password" id="currentPassword" type="password">
+
+        <label for="newPassword" style="margin-top:10px">New Password</label>
+        <input id="newPassword" formControlName="NewPassword" type="password">
+        <div class="pw-meter" aria-hidden="true"><div id="pwFill" class="pw-fill"></div></div>
+        <div id="pwText" class="pw-text" aria-live="polite">Password strength</div>
+
+        <label for="confirmPassword" style="margin-top:10px">Confirm New Password</label>
+        <input id="confirmPassword" formControlName="confirmPassword" type="password">
+
+        <div style="display:flex; justify-content:flex-end; margin-top:12px">
+          <button type="submit" class="btn primary" (click)="UpdatingPassword()">Update Password</button>
+        </div>
+      </form>
+
+    </section>
+
+    <!-- Recent Orders -->
+    <section  class="card" aria-labelledby="recentOrdersTitle">
+      <h2 (click)="RecentOrdersLocktoggle()" id="recentOrdersTitle" class="section-title">🛍️ Recent Orders</h2>
+      <div appOpenColseActionDirective [valueOflock]="RecentOrdersCompenentLock()" class="list" id="recentOrders">
+        <div class="list-item" data-order-id="1234">
+          <div>
+            <div style="font-weight:600">Order #1234</div>
+            <div style="color:var(--muted); font-size:13px">Placed on Sep 10, 2025</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div class="status delivered">Delivered</div>
+            <button type="button" class="btn sm" onclick="onViewOrder(1234)">View</button>
+          </div>
+        </div>
+
+        <div class="list-item" data-order-id="1235">
+          <div>
+            <div style="font-weight:600">Order #1235</div>
+            <div style="color:var(--muted); font-size:13px">Placed on Sep 08, 2025</div>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <div class="status shipped">Shipped</div>
+            <button type="button" class="btn sm" onclick="onViewOrder(1235)">View</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous Orders -->
+    <section (click)="PreviousOrdersLocktoggle()" class="card" aria-labelledby="previousOrdersTitle">
+      <h2 id="previousOrdersTitle" class="section-title">📦 Previous Orders</h2>
+      <div appOpenColseActionDirective [valueOflock]="PreviousOrdersCompenentLock()" class="list">
+        <div class="list-item" data-order-id="101">
+          <div>
+            <div style="font-weight:600">Order #101</div>
+            <div style="color:var(--muted); font-size:13px">Placed on Aug 15, 2025</div>
+          </div>
+          <div class="status" style="color:var(--muted)">Completed</div>
+        </div>
+        <div class="list-item" data-order-id="102">
+          <div>
+            <div style="font-weight:600">Order #102</div>
+            <div style="color:var(--muted); font-size:13px">Placed on Jul 12, 2025</div>
+          </div>
+          <div class="status" style="color:var(--muted)">Completed</div>
+        </div>
+      </div>
+    </section>
+
+    <section  class="card Saved-Addresses" aria-labelledby="addressesTitle">
+      <div (click)="SavedAddressesLocktoggle()" class="section-title">
+        <h2  id="addressesTitle" class="section-title">🏠 Saved Addresses</h2>
+      <i  class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </div>
+      <div appOpenColseActionDirective [valueOflock]="SavedAddressesCompenentLock()" class="list ">
+        @for( addressitem of defaultUser().addresses; track $index){
+          <div class="list-item" data-address-id="a1">
+          <div>{{ addressitem.address }}, {{ addressitem.city }}, {{ addressitem.state }}</div>
+          <div style="display:flex; gap:8px">
+            <button type="button" class="btn"  (click)="EditAddressBtn(addressitem)">Edit</button>
+            @if(addressitem.default==true){
+              <button type="button" class="btn" >Default</button>
+            }
+            @else {
+              <button type="button" class="btn" (click)="SetDefualt(addressitem)" >Set Default</button>
+            }
+              <button type="button" class="btn" (click)="RemoveAddress(addressitem)">Remove</button>
+          </div>
+        </div>
+        }
+          <form
+            [formGroup]="AddingAddressGroupForm"
+            (ngSubmit)="OnSubmitAddress()"
+            class="AddingAddressForm form-grid"
+            appOpenColseActionDirective
+            [valueOflock]="AddingAddresslock()"
+          >
+
+              <div>
+                <label>Address(*)</label>
+                <input type="text" formControlName="address" placeholder="Enter address" />
+              </div>
+
+              <div>
+                <label>City(*)</label>
+                <input type="text" formControlName="city" placeholder="Enter city" />
+              </div>
+
+              <div>
+                <label>State</label>
+                <input type="text" formControlName="state" placeholder="Enter state" />
+              </div>
+              <div>
+                <label>Postal Code(*)</label>
+                <input type="text" formControlName="postalCode" placeholder="Enter postal code" />
+              </div>
+
+              <div >
+                <label>name(*)</label>
+                <input type="text" formControlName="name" placeholder="Enter name of address" />
+              </div>
+
+              <div >
+                <label>id</label>
+                <input type="text" formControlName="id" placeholder="Enter id" />
+              </div>
+
+              <div class="full">
+                <label>Country(*)</label>
+                <input type="text" formControlName="country" placeholder="Enter country" />
+              </div>
+              <button type="submit" class="AddressForm-btn" >
+                Submit
+              </button>
+
+          </form>
+      </div>
+      <div style="margin-top:12px; display:flex; justify-content:flex-end">
+        @if(AddingAddresslock()){
+          <button type="button" class="btn primary " (click)="AddingAddresstoggle()"> <i class="bi bi-unlock-fill"></i></button>
+        }
+        @else {
+                <button type="button" class="btn primary " (click)="AddingAddresstoggle()"> <i class="bi bi-lock-fill"></i></button>
+        }
+      </div>
+    </section>
+
+    <!-- Saved Payment Methods -->
+    <section  class="card" aria-labelledby="paymentsTitle">
+      <div (click)="SavedPaymentMethodsLocktoggle()" class="section-title">
+        <h2 id="paymentsTitle" class="section-title-payment">💳 Saved Payment Methods</h2>
+         <i  class="bi payment" [ngClass]="SavedPaymentMethodsCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </div>
+            @if(SavedPaymentMethodsCompenentLock()){
+              <div  class="list">
+                @for(paymentitem of defaultUser().bank;  track $index){
+                  <div class="list-item" data-payment-id="p1">
+                    <div class="chip">{{ paymentitem.name }}•••••••• {{ paymentitem.cardNumber.slice(-4) }}</div>
+                    <div style="display:flex; gap:8px">
+                      <button type="button" class="btn" (click)="onEditPayment(paymentitem)">Edit</button>
+                      <button type="button" class="btn" (click)="RemovePayment(paymentitem)" >Remove</button>
+                    </div>
+                  </div>
+                }
+
+              </div>
+            }
+      <div style="margin-top:12px; display:flex; justify-content:flex-end">
+        <button type="button" class="btn primary" (click)="paymentcompenenttoggle()">+ Add Payment Method</button>
+      </div>
+    </section>
+
+
+      <form appOpenColseActionDirective [valueOflock]="paymentcompenentlocker()" [formGroup]="paymentGroupForm" class="payment-form">
+         <div class="form-row">
+           <div class="form-group">
+             <label for="card-number">Card Number</label>
+             <input
+               type="text"
+               formControlName="cardNumber"
+               id="card-number"
+               placeholder="1234 5678 9012 3456"
+               maxlength="19"
+               >
+                       <div class="card-icons">
+           <div class="card-icon">VISA</div>
+           <div class="card-icon">MC</div>
+           <div class="card-icon">AMEX</div>
+         </div>
+           </div>
+           <div class="form-group">
+             <label for="card-name">Cardholder Name</label>
+             <input
+               type="text"
+               id="card-name"
+               formControlName="name"
+               placeholder="John Doe">
+           </div>
+         </div>
+
+         <div class="form-row">
+           <div class="form-group">
+             <label for="expiry">Expiry Date</label>
+             <input
+               type="text"
+               id="expiry"
+               formControlName="cardExpire"
+               placeholder="MM/YY"
+               maxlength="5"
+              >
+           </div>
+           <div class="form-group">
+             <label for="cvv">CVV</label>
+             <input
+               type="text"
+               id="cvv"
+               formControlName="cvv"
+               placeholder="123"
+               maxlength="4"
+              >
+           </div>
+         </div>
+
+         <button type="submit" (click)="paymentcompenentsubmit()" class="submit-btn"> submit </button>
+         <button (click)="paymentcompenenttoggle()" class="closepaymentcompenent"><i class="bi bi-x-lg"></i></button>
+       </form>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <div class="wrap">
+    <div class="container">
+
+
+      <section class="card profile-header" aria-labelledby="profileTitle">
+        <div class="avatar" aria-hidden="true">JD</div>
+        <div style="flex:1">
+          <div class="profile-meta">
+            <h1 id="profileTitle">John Doe</h1>
+            <p id="profileEmail">johndoe@example.com</p>
+          </div>
+          <div class="profile-actions">
+            <button type="button" class="btn" onclick="onEditProfile()">✎ Edit Profile</button>
+            <button type="button" class="btn danger" onclick="onLogout()">⎋ Logout</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="accountTitle">
+        <h2 id="accountTitle" class="section-title">Account Details</h2>
+        <form id="accountForm" onsubmit="return false;">
+          <div class="grid">
+            <div>
+              <label for="fullName">Full Name</label>
+              <input id="fullName" name="fullName" type="text" value="John Doe">
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="emailInput" name="email" type="email" value="johndoe@example.com">
+            </div>
+
+            <div>
+              <label for="phone">Phone Number</label>
+              <input id="phone" name="phone" type="text" value="+123 456 7890">
+            </div>
+            <div>
+              <label for="address">Address</label>
+              <input id="address" name="address" type="text" value="123 Main St, NY">
+            </div>
+
+            <div class="full" style="display:flex; justify-content:flex-end; margin-top:6px">
+              <button type="button" class="btn primary" onclick="onSaveAccountDetails()">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section (click)="passwordbolckopenertoggle()" class="card" aria-labelledby="passwordTitle">
+        <h2 id="passwordTitle" class="section-title">🔒 Change Password</h2>
+
+        <div appOpenColseActionDirective [valueOflock]="PasswordCompenentLock()" style="max-width:700px">
+          <label for="currentPassword">Current Password</label>
+          <input id="currentPassword" type="password">
+
+          <label for="newPassword" style="margin-top:10px">New Password</label>
+          <input id="newPassword" type="password" oninput="onCheckPasswordStrength()">
+          <div class="pw-meter" aria-hidden="true"><div id="pwFill" class="pw-fill"></div></div>
+          <div id="pwText" class="pw-text" aria-live="polite">Password strength</div>
+
+          <label for="confirmPassword" style="margin-top:10px">Confirm New Password</label>
+          <input id="confirmPassword" type="password">
+
+          <div style="display:flex; justify-content:flex-end; margin-top:12px">
+            <button type="button" class="btn primary" onclick="onUpdatePassword()">Update Password</button>
+          </div>
+        </div>
+
+      </section>
+
+
+      <section (click)="RecentOrdersLocktoggle()" class="card" aria-labelledby="recentOrdersTitle">
+        <h2 id="recentOrdersTitle" class="section-title">🛍️ Recent Orders</h2>
+        <div appOpenColseActionDirective [valueOflock]="RecentOrdersCompenentLock()" class="list" id="recentOrders">
+          <div class="list-item" data-order-id="1234">
+            <div>
+              <div style="font-weight:600">Order #1234</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Sep 10, 2025</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center">
+              <div class="status delivered">Delivered</div>
+              <button type="button" class="btn sm" onclick="onViewOrder(1234)">View</button>
+            </div>
+          </div>
+
+          <div class="list-item" data-order-id="1235">
+            <div>
+              <div style="font-weight:600">Order #1235</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Sep 08, 2025</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center">
+              <div class="status shipped">Shipped</div>
+              <button type="button" class="btn sm" onclick="onViewOrder(1235)">View</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section (click)="PreviousOrdersLocktoggle()" class="card" aria-labelledby="previousOrdersTitle">
+        <h2 id="previousOrdersTitle" class="section-title">📦 Previous Orders</h2>
+        <div appOpenColseActionDirective [valueOflock]="PreviousOrdersCompenentLock()" class="list">
+          <div class="list-item" data-order-id="101">
+            <div>
+              <div style="font-weight:600">Order #101</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Aug 15, 2025</div>
+            </div>
+            <div class="status" style="color:var(--muted)">Completed</div>
+          </div>
+          <div class="list-item" data-order-id="102">
+            <div>
+              <div style="font-weight:600">Order #102</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Jul 12, 2025</div>
+            </div>
+            <div class="status" style="color:var(--muted)">Completed</div>
+          </div>
+        </div>
+      </section>
+
+
+      <section (click)="SavedAddressesLocktoggle()" class="card" aria-labelledby="addressesTitle">
+        <h2 id="addressesTitle" class="section-title">🏠 Saved Addresses</h2>
+        <div appOpenColseActionDirective [valueOflock]="SavedAddressesCompenentLock()" class="list">
+          <div class="list-item" data-address-id="a1">
+            <div>123 Main St, New York, NY</div>
+            <div style="display:flex; gap:8px">
+              <button type="button" class="btn" onclick="onEditAddress('a1')">Edit</button>
+              <button type="button" class="btn" onclick="onSetDefaultAddress('a1')">Set Default</button>
+            </div>
+          </div>
+
+          <div class="list-item" data-address-id="a2">
+            <div>456 Park Ave, Los Angeles, CA</div>
+            <div style="display:flex; gap:8px">
+              <button type="button" class="btn" onclick="onEditAddress('a2')">Edit</button>
+              <button type="button" class="btn" onclick="onRemoveAddress('a2')">Remove</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:flex-end">
+          <button type="button" class="btn primary" onclick="onAddAddress()">+ Add New Address</button>
+        </div>
+      </section>
+
+
+      <section (click)="SavedPaymentMethodsLocktoggle()" class="card" aria-labelledby="paymentsTitle">
+        <h2 id="paymentsTitle" class="section-title">💳 Saved Payment Methods</h2>
+        <div appOpenColseActionDirective [valueOflock]="SavedPaymentMethodsCompenentLock()" class="list">
+          <div class="list-item" data-payment-id="p1">
+            <div class="chip">Visa •••• 1234</div>
+            <div style="display:flex; gap:8px">
+              <button type="button" class="btn" onclick="onEditPayment('p1')">Edit</button>
+              <button type="button" class="btn" onclick="onRemovePayment('p1')">Remove</button>
+            </div>
+          </div>
+
+          <div class="list-item" data-payment-id="p2">
+            <div class="chip">Mastercard •••• 5678</div>
+            <div style="display:flex; gap:8px">
+              <button type="button" class="btn" onclick="onEditPayment('p2')">Edit</button>
+              <button type="button" class="btn" onclick="onRemovePayment('p2')">Remove</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:12px; display:flex; justify-content:flex-end">
+          <button type="button" class="btn primary" onclick="onAddPayment()">+ Add Payment Method</button>
+        </div>
+      </section>
+
+    </div>
+  </div> -->

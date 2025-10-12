@@ -1,0 +1,200 @@
+/* You can add global styles to this file, and also import other style files */
+    *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+    body {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+ .p-carousel .p-carousel-content{
+  position: relative;
+ }
+ .p-carousel  .p-carousel-content{
+   position: relative !important;
+ }
+ .p-carousel  .p-carousel-viewport{
+   position: relative !important;
+ }
+  .p-carousel  .p-carousel-items-container{
+   position: relative !important;
+ }
+
+  .p-carousel .p-carousel-prev-button{
+  margin-left: 10px !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 5% !important;
+  background: white;
+  border-radius: 50%!important;;
+  display: flex!important;;
+  width: 30px!important;;
+  height: 30px!important;;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+  justify-content: center!important;;
+  align-items: center!important;;
+
+ }
+
+ .p-carousel  .p-carousel-next-button{
+   margin-right: 10px !important;
+   position: absolute !important;
+   top: 50% ;
+   right: 5% ;
+   transform: translateY(-50%) !important;
+   background: white;
+   border-radius: 50%;
+   display: flex;
+   width: 30px;
+   height: 30px;
+   z-index: 10 !important;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .best20div .p-carousel .p-carousel-content{
+  position: relative;
+ }
+ .best20div .p-carousel-content-container{
+  overflow: visible!important;
+ }
+ .best20div .p-carousel  .p-carousel-content{
+   position: relative !important;
+   overflow: visible !important
+ }
+ .best20div .p-carousel  .p-carousel-viewport{
+
+   position: relative !important;
+ }
+ .best20div .p-carousel  .p-carousel-items-container{
+   position: relative !important;
+ }
+
+
+.best20div .p-carousel .p-carousel-prev-button{
+  margin-left: 10px !important;
+  position: absolute !important;
+  top: -10% !important;
+  right: 15% !important;
+  left: auto!important;
+  background: rgb(224, 224, 224)!important;
+  border-radius: 50%!important;
+  display: flex;
+  width: 30px!important;
+  height: 30px!important;
+  /* transform: translateY(-10%) !important; */
+  z-index: 40 !important;
+  justify-content: center!important;
+  align-items: center!important;
+}
+.best20div .p-carousel  .p-carousel-next-button{
+  margin-right: 10px !important;
+  position: absolute !important;
+  top: -10% !important;
+  right: 5% !important;
+  left: auto!important;
+  /* transform: translateY(-50%) !important; */
+  background: rgb(224, 224, 224)!important;
+  border-radius: 50%!important;
+  display: flex!important;
+  width: 30px!important;
+  height: 30px!important;
+  z-index: 40 !important;
+  justify-content: center!important;
+  align-items: center!important;
+}
+.best20div .p-carousel-item-list{
+  /* display:grid;
+  grid-template-columns:repeat(4,1fr); */
+
+  position:relative!important;
+  justify-items: center!important;
+}
+
+/*  8888888888             */
+/* --- Let side items peek out --- */
+.topCategoriesCarousel .p-carousel-content,
+.topCategoriesCarousel .p-carousel-viewport,
+.topCategoriesCarousel .p-carousel-items-container {
+  overflow: visible !important;
+  position: relative !important;
+}
+
+/* --- Add soft fade on both sides --- */
+.topCategoriesCarousel .p-carousel-content::before,
+.topCategoriesCarousel .p-carousel-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 80px; /* how wide the fade is */
+  z-index: 20;
+  pointer-events: none; /* so buttons still work */
+}
+
+/* fade color – adjust if background isn’t white */
+.topCategoriesCarousel .p-carousel-content::before {
+  left: 0;
+  background: linear-gradient(to right, #f8f9fa 30%, transparent 100%);
+}
+
+.topCategoriesCarousel .p-carousel-content::after {
+  right: 0;
+  background: linear-gradient(to left, #f8f9fa 30%, transparent 100%);
+}
+::ng-deep .topCategoriesCarousel .p-carousel-content,
+::ng-deep .topCategoriesCarousel .p-carousel-viewport,
+::ng-deep .topCategoriesCarousel .p-carousel-items-container {
+  overflow: visible !important;
+}
+.top-categories .p-carousel-item-list{
+  margin: 0 15%;
+}
+.blurCarousel .carousel-item {
+  transition: filter 0.4s ease, transform 0.4s ease;
+  filter: blur(4px) brightness(0.6);
+  transform: scale(0.95);
+  opacity: 0.6;
+}
+.top-categories .p-carousel-prev,
+.top-categories .p-carousel-next {
+  background: white !important;
+  color: #333 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+/* .top-categories .p-carousel-item-list{
+  gap: 1rem;
+} */
+ .commentsection  .p-carousel  .p-carousel-next-button {
+   top: -10px !important;
+    right: 5% !important;
+    left: auto!important;
+    z-index: 0!important;
+ }
+  .commentsection  .p-carousel  .p-carousel-prev-button {
+   top: -10px !important;
+    right: 10% !important;
+    left: auto!important;
+    z-index: 0!important;
+ }
+ .commentsection  .p-carousel  .p-carousel-content{
+   position: relative !important;
+   overflow: visible !important
+ }
+ .commentsection  .p-carousel .p-carousel-content-container{
+  overflow: visible!important;
+ }
+
+
+.blurCarousel .carousel-item.active {
+  filter: blur(0) brightness(1);
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2;
+}
+

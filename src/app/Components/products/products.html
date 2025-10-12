@@ -1,0 +1,18 @@
+  <div style="width: 100%;" class="product-grid">
+  @for (product of productlist() | filterPipe:searchText; track $index) {
+    <div  class="product-item" [attr.data-product-id]="product.id">
+      <img [routerLink]="`products/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.images[0]?product.images[0]:imageurl" alt="Product Image">
+        @if(favourite().includes((product.id.toString()))){
+          <button style="color:red;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+        @else {
+          <button style="color: gray;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+      <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.title}}</p>
+      <div class="bottom-card">
+        <span class="product-price">${{ product.price }}</span>
+        <button (click)="addToCart(product)" class="add-to-cart"><i class="bi bi-cart2"></i></button>
+      </div>
+    </div>
+  }
+  </div>

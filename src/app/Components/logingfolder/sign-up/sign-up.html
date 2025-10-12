@@ -1,0 +1,12 @@
+  <form  [formGroup]="LogingGroupForm" (submit)="onSubmit()" class="form">
+    <h3>Sign up</h3>
+    <input formControlName="firstName"  class="input firstNameInput"  type="text" placeholder="enter your first name">
+    <input formControlName="lastName" class="input lastNameInput" type="text" placeholder="enter your last name">
+    <input formControlName="email"  class="input EmailInput" type="email" placeholder="enter your email">
+    <input type="number" formControlName="age"  class="input AgeInput"  placeholder="enter your age">
+    <input formControlName="password"   class="input passwordInput" type="password" placeholder="enter your password">
+    <input formControlName="confirmPassword"  class="input confirmPasswordInput" type="password" placeholder="confirm your password">
+    <a routerLink="/loging">sign in</a>
+    <button class="formbtn" type="submit">submit</button>
+
+  </form>

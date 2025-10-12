@@ -1,0 +1,26 @@
+<div class="cart-container">
+  @for(cartitem of items(); track $index)
+  {
+    <div class="cart-item">
+      <img  alt="{{cartitem.title}}" class="cart-item-image" [src]="cartitem.images?.[0] || imageurl"/>
+      <div class="cart-item-details">
+        <p class="cart-item-title">{{cartitem.title}}</p>
+        <span class="cart-item-description">{{cartitem.description}}</span>
+        <button class="remove-btn" (click)="removeitem(cartitem)">Remove from Cart</button>
+      </div>
+      <div class="cart-item-price">
+        <span> {{cartitem.price }}</span>
+      </div>
+      <input type="number" min="1" [value]="cartitem.quantity" disabled class="cart-item-quantity"/>
+    </div>
+  }
+
+  <router-outlet></router-outlet>
+  <div class="ordering-class">
+    <p class="total-price">total is: {{ total()| number:'1.2-2'}}</p>
+    <button (click)="NavigattoOrder()" class="Order-btn">
+      Order
+    </button>
+  </div>
+</div>
+

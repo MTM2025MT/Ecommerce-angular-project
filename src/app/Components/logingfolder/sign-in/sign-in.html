@@ -1,0 +1,10 @@
+  <form  [formGroup]="LoginginGroupForm" (submit)="onSubmit()" class="form">
+    <h1>Sign in</h1>
+    <input formControlName="email"  class="input EmailInput" type="email" placeholder="enter your email">
+
+    <input formControlName="password"   class="input passwordInput" type="password" placeholder="enter your password">
+
+    <a style="text-decoration: none;;height: 20px;display: inline-block;" routerLink="/loging/sign-up">sign up</a>
+    <button class="formbtn" type="submit">submit</button>
+
+  </form>

@@ -1,0 +1,12 @@
+
+<section class="first-component">
+<form  [formGroup]="Groupform" (submit)="onSubmit()" class="form">
+   <input formControlName="firstname"  class="input firstNameInput"  type="text" placeholder="enter your first name">
+   <input formControlName="lastname" class="input lastNameInput" type="text" placeholder="enter your last name">
+   <input formControlName="email"  class="input EmailInput" type="email" placeholder="enter your email">
+   <input formControlName="age"  class="input AgeInput" type="text" placeholder="enter your age">
+   <input formControlName="password"   class="input passwordInput" type="password" placeholder="enter your password">
+   <input formControlName="confirmPassword"  class="input confirmPasswordInput" type="password" placeholder="confirm your password">
+   <button type="submit">submit</button>
+</form>
+</section>

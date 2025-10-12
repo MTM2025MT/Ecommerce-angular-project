@@ -1,0 +1,73 @@
+
+
+<section class="product-section">
+  @if(productItem();as productItem){
+    <div class="product-container">
+
+     <div class="product-images">
+       <img [src]="productItem.images[0]" alt="Product" class="main-image">
+       <div class="thumbnail-gallery">
+         <img [src]="productItem.images[0]" alt="thumb1">
+         <img [src]="productItem.images[0]" alt="thumb2">
+         <img [src]="productItem.images[0]" alt="thumb3">
+         <img [src]="productItem.images[0]" alt="thumb4">
+       </div>
+     </div>
+
+
+     <div class="product-details">
+       <h2>{{productItem.title}}</h2>
+          <div class="reviews">
+
+           @for (filled of stars(); track $index) {
+             <span [class.filled]="filled" [class.empty]="!filled">
+               {{ filled ? '★' : '☆' }}
+             </span>
+           }
+         <span>({{productItem.rating.count}} Reviews)</span>
+
+       </div>
+       <div class="price">${{ productItem.price }} <del>${{ productItem.price+10 }}</del></div>
+       <p class="description">
+        {{ productItem.description }}
+       </p>
+
+       <div class="options">
+         <p><b>Size</b></p>
+         <div class="sizes">
+           <span>S</span>
+           <span>M</span>
+           <span>L</span>
+           <span>XL</span>
+           <span>XXL</span>
+         </div>
+       </div>
+
+       <div class="quantity">
+         <button (click)="decrementQuantity()" class="btn">-</button>
+         <input type="number" [(ngModel)]="quantity" min="1" disabled class="quantity-input">
+         <button (click)="incrementQuantity()" class="btn">+</button>
+       </div>
+
+       <div>
+         <button (click)="AddToCard()" class="btn btn-cart">Add To Cart</button>
+      @if(favourite().includes((productItem.id.toString()))){
+          <button class="btn btn-fav" style="color:red;" (click)="Favouritebtn((productItem.id.toString()))" >♥</button>
+        }
+        @else {
+          <button class="btn btn-fav" style="color: gray;" (click)="Favouritebtn((productItem.id.toString()))" >♥</button>
+        }
+         <button class="btn btn-compare">⇄</button>
+       </div>
+
+       <div class="extra-info">
+         <p><b>Category:</b> Clothing</p>
+         <p><b>Availability:</b> 180 Products In Stock</p>
+       </div>
+     </div>
+   </div>
+  }
+  @else {
+    <h1>couldn't find the product </h1>
+  }
+</section>

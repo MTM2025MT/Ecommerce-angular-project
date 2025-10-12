@@ -1,0 +1,57 @@
+<app-navbar/>
+
+<router-outlet></router-outlet>
+<footer class="footer">
+  <!-- Logo & About -->
+  <div class="footer-col">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/639/639365.png" alt="logo">
+      Comforty
+    </div>
+    <p>
+      Vivamus tristique odio sit amet velit semper, eu posuere turpis interdum.
+      Cras egestas purus.
+    </p>
+    <div class="social-icons">
+      <a ><i class="bi bi-facebook"></i></a>
+      <a ><i class="bi bi-twitter-x"></i></a>
+      <a ><i class="bi bi-instagram"></i></a>
+      <a ><i class="bi bi-threads"></i></a>
+      <a ><i class="bi bi-youtube"></i></a>
+    </div>
+  </div>
+
+  <!-- Category -->
+  <div class="footer-col">
+    <h4>Category</h4>
+    <ul>
+      @for( category of Categories; track $index){
+        <li><a>{{category}}</a></li>
+      }
+    </ul>
+  </div>
+
+  <!-- Support -->
+  <div class="footer-col">
+    <h4>Support</h4>
+    <ul>
+      <li><a>Help & Support</a></li>
+      <li><a >Tearms & Conditions</a></li>
+      <li><a >Privacy Policy</a></li>
+      <li><a >Help</a></li>
+    </ul>
+  </div>
+
+  <!-- Newsletter -->
+  <div class="footer-col newsletter">
+    <h4>Newsletter</h4>
+    <form action="#">
+      <input type="email" placeholder="Your email">
+      <button type="submit">Subscribe</button>
+    </form>
+    <small>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Nullam tincidunt erat enim.
+    </small>
+  </div>
+</footer>

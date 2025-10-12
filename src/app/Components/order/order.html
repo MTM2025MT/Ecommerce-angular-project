@@ -1,0 +1,35 @@
+<form [formGroup]="OrderForm" (submit)="onSubmit()" class="order-container">
+  <h1 class="title">🛒 Complete Your Order</h1>
+
+
+  <section class="card">
+    <h2 class="section-title">📍 Select Address</h2>
+    <select formControlName="address"  class="select-box">
+     @for(address of getUserAddresses(); track $index){
+      <option value="{{address.id}}">{{address.address }} {{address.city }} {{address.country}}</option>
+     }
+
+    </select>
+  </section>
+
+
+  <section class="card">
+    <h2 class="section-title">💳 Payment Method</h2>
+    <select formControlName="payment" class="select-box">
+    @for(payment of getUserPayments(); track $index){
+      <option value="{{payment.id}}">{{payment.cardType }}••••••••{{payment.cardNumber.slice(-4) }} </option>
+     }
+    </select>
+  </section>
+
+
+  <section class="card">
+    <h2 class="section-title">📝 Order Notes</h2>
+    <textarea formControlName="notes" placeholder="Add any special notes..." rows="4"></textarea>
+  </section>
+
+
+  <div class="actions">
+    <button class="btn primary">Place Order</button>
+  </div>
+</form>

@@ -1,0 +1,167 @@
+<section style="background-color: inherit; display: flex;flex-direction: column;align-items: center;justify-content: flex-end;margin:10px 0 ;">
+ <div style="background-color: inherit;width:80%;" class="best20div">
+  <div style="display: flex;justify-content:flex-start;align-items: center;height: 50px;">
+    <h1 style="font-size: 30px;">
+      best 20 product
+    </h1>
+  </div>
+  <p-carousel
+  [value]=" productlist()|filterbestwenty"
+  [numVisible]="4"
+  [numScroll]="1"
+  [circular]="true"
+  [autoplayInterval]="30000"
+  styleClass="custom-carousel"
+
+  >
+
+  <ng-template class="product-grid-best20" pTemplate="item" let-product>
+  <div class=" main-img-container ">
+    <div  class="product-item product-item-best20" [attr.data-product-id]="product.id">
+
+      <img  [routerLink]="`/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.images[0]?product.images[0]:imageurl" alt="Product Image">
+        @if(favourite().includes((product.id.toString()))){
+          <button style="color:red;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+        @else {
+          <button style="color: gray;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+        }
+      <div class="bottom-card">
+        <div class="price-title" >
+          <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.title}}</p>
+          <span class="product-price-best20">${{ product.price }}</span>
+        </div>
+        <button (click)="addToCart(product)" class="add-to-cart"><i class="bi bi-cart2"></i></button>
+      </div>
+    </div>
+
+
+  </div>
+</ng-template>
+</p-carousel>
+ </div>
+
+ <div  class="catagories">
+
+<div style="margin-top: 20px;" class="top-categories">
+  <h2>Top Categories</h2>
+  <p-carousel
+    [value]="categories"
+    [numVisible]="3"
+    [numScroll]="1"
+    [circular]="true"
+    [autoplayInterval]="0"
+
+    [showIndicators]="false"
+    (onPage)="onPageChange($event)"
+  >
+    <ng-template pTemplate="item" let-category let-i="index">
+      <div [id]="category.index" class="category-card">
+
+
+          @if(isItemVisible(category.index)) {
+            <div  class="image-container visibleslide" >
+            <img [src]="category.image" [alt]="category.name" />
+            <div class="overlay">
+              <h3>{{ category.name }} visable</h3>
+              <p>{{ category.products | number }} Products</p>
+            </div>
+            </div>
+          }@else {
+           <div  class="image-container unvisibleslide" >
+            <img [src]="category.image"  [alt]="category.name" />
+            <div class="overlay">
+              <h3>unvisable{{ category.name }}</h3>
+              <p>{{ category.products | number }} Products</p>
+            </div>
+            <div class="shadow " > </div>
+          </div>
+          }
+
+
+      </div>
+    </ng-template>
+  </p-carousel>
+</div>
+
+ </div>
+
+
+ <div class="our-products">
+    <div class="our-products-header">
+      <h1 style="font-size: 30px;">
+        our products
+      </h1>
+        <nav class="navbar navbar-expand-lg navbar-light  our-products-header-nav">
+
+            <li><a class="nav-link" routerLink="/main/home">Home</a></li>
+
+            <li><a class="nav-link" routerLink="#">products</a></li>
+
+            <li><a class="nav-link" routerLink="/main/About">About</a></li>
+
+        </nav>
+    </div>
+    <div class="templet-grid-8">
+      @for(product of ourproducts ; track $index) {
+
+        <div  class="product-item" [attr.data-product-id]="product.id">
+          <img [routerLink]="`/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.image" alt="Product Image">
+            @if(favourite().includes((product.id.toString()))){
+              <button style="color:red;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+            }
+            @else {
+              <button style="color: gray;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
+            }
+          <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.name}}</p>
+          <div class="bottom-card">
+            <span class="product-price">20$</span>
+            <button class="add-to-cart"><i class="bi bi-cart2"></i></button>
+          </div>
+        </div>
+      }
+    </div>
+ </div>
+
+  <section class="commentsection">
+    <h3 >what clint say about us</h3>
+      <p-carousel
+  [value]="comments"
+  [numVisible]="2"
+  [numScroll]="1"
+  [circular]="true"
+  [autoplayInterval]="300000"
+
+
+  >
+
+  <ng-template class="product-grid-best20" pTemplate="item" let-comment>
+  <div class="testimonial-card">
+    <div class="testimonial-content">
+      <p class="quote">
+        {{ comment.text }}
+      </p>
+    </div>
+
+    <div style="display: flex; justify-content: space-between;align-items: center;width: 100%;margin-top: 20px;">
+    <div class="author">
+      <img src="https://i.pravatar.cc/60" alt="profile">
+      <div class="author-info">
+        <h3>{{comment.name}}</h3>
+        <p>{{comment.role}}</p>
+      </div>
+    </div>
+
+    <div class="quote-icon"><img src="Vector.png" /><img src="Vector.png" /></div>
+  </div>
+  </div>
+  </ng-template>
+  </p-carousel>
+  </section>
+
+
+</section>
+
+
+
+
