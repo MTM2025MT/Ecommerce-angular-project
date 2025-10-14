@@ -1,5 +1,66 @@
-<section style="background-color: inherit; display: flex;flex-direction: column;align-items: center;justify-content: flex-end;margin:10px 0 ;">
- <div style="background-color: inherit;width:80%;" class="best20div">
+    <header id="home">
+        <section class="image-section">
+          <p-carousel
+             [value]="products"
+             [numVisible]="1"
+             [numScroll]="1"
+             [circular]="true"
+             [autoplayInterval]="30000"
+             styleClass="custom-carousel"
+
+             >
+           <ng-template pTemplate="item" let-product>
+             <div class="product-item main-img-container">
+              <div class="main-title">
+                <p class="title">Welcome to E-commerce</p>
+                <p class="paragraph">{{product.Text}}</p>
+              </div>
+               <div class="product-image">
+                 <img [src]="product.image" class="main-img" [alt]="product.name" style=" object-fit: contain;" />
+               </div>
+
+             </div>
+           </ng-template>
+         </p-carousel>
+        </section>
+        <section class="container-icon-advantages">
+          <div class="icon-advantage">
+            <img src="icons-advantages/24-hours.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>Every week new sales
+             </div>
+          </div>
+          <div class="icon-advantage">
+            <img src="icons-advantages/box.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>100% Secure Payment Method
+             </div>
+          </div>
+          <div class="icon-advantage">
+            <img src="icons-advantages/shield.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>100% Free for all orders
+             </div>
+          </div>
+          <div class="icon-advantage">
+            <img src="icons-advantages/delivery-truck.png" alt="logo">
+             <div class="icon-advantage-text">
+              <p>Comforty</p>
+              <p>We care your experiences
+             </div>
+          </div>
+        </section>
+    </header>
+
+<section class="homesection" style="background-color: inherit; display: flex;flex-direction: column;align-items: center;justify-content: flex-end;margin:10px 0 ;">
+
+
+
+
+  <div style="background-color: inherit;width:80%;" class="best20div">
   <div style="display: flex;justify-content:flex-start;align-items: center;height: 50px;">
     <h1 style="font-size: 30px;">
       best 20 product
@@ -60,16 +121,16 @@
 
 
           @if(isItemVisible(category.index)) {
-            <div  class="image-container visibleslide" >
-            <img [src]="category.image" [alt]="category.name" />
+            <div [routerLink]="`/main/products/${category.name}`"  class="image-container visibleslide" >
+            <img [src]="category.image"  (error)="onImgError($event, category.image2)" [alt]="category.name" />
             <div class="overlay">
-              <h3>{{ category.name }} visable</h3>
+              <h3>{{ category.name }} </h3>
               <p>{{ category.products | number }} Products</p>
             </div>
             </div>
           }@else {
            <div  class="image-container unvisibleslide" >
-            <img [src]="category.image"  [alt]="category.name" />
+            <img [src]="category.image"  (error)="onImgError($event, category.image2)" [alt]="category.name" />
             <div class="overlay">
               <h3>unvisable{{ category.name }}</h3>
               <p>{{ category.products | number }} Products</p>

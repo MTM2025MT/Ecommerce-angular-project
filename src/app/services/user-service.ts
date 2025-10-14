@@ -47,8 +47,9 @@ defaultUser =signal<user>( {
     return this.http.post(`${this.url}/users`,user);
   }
 
-  PatchForUser(id:number,partialUser: Partial<user>){
-  return this.http.patch<user>(`${this.url}/users/${id}`, partialUser);
+  PatchForUser(partialUser: Partial<user>){
+    this.defaultUser.update(prev => ({...prev, ...partialUser}));
+   return this.http.put(`${this.url}/users/${this.defaultUser().id}`, this.defaultUser());
   }
   UpdatingUser(user:user){
     return this.http.put(`${this.url}/users/${user.id}`, user).subscribe({

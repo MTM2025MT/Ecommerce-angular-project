@@ -63,7 +63,20 @@ input[type=text], input[type=email], input[type=password]{width:100%; padding:10
   margin-top: 16px;
   height: 170px;
 }
-
+.postalcode:hover::after {
+  content: "  (4–5 digits only)";
+  font-size: 10px;
+  width: 100%;
+  height: 40px;
+  color: black;
+}
+.Address-name:hover::after {
+  content: "  (e.g., Home, Work)";
+  font-size: 10px;
+  width: 100%;
+  height: 40px;
+  color: black;
+}
 .form-grid {
   display: none;
   grid-template-columns: repeat(4, 1fr);

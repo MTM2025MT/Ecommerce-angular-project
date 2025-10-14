@@ -17,7 +17,8 @@ export  type order={
       payment_detiles?:payment,
       Note:string,
       created_at: string,
-      card:Cart
+      card:Cart,
+      createAt?:Date
 
 }
 /** "order_statuses": {

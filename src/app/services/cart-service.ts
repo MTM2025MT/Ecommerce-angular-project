@@ -85,6 +85,36 @@ export class CartService {
             this.Cart.update(res=>{return {...res,products:cart}}); // update signal to trigger reactive changes
         }
     }
+    newaddToCart(item: Product, quantity: number = 1) {
+      const exisistingitem= this.http.get<CartElement[]>(`${this.url}/carts/${this.Cart().id}/products`).pipe(
+        map(products => products.find(p => p.id === item.id)),
+      ).subscribe({
+        next:res=>{
+          if(res){
+            const updated_cart_element={...res,quantity:(res.quantity+1)}
+            this.http.put<CartElement>(`${this.url}/carts/${this.Cart().id}/products/${res.id}`,updated_cart_element)
+          }
+          else{
+            const new_cart_element:CartElement={
+                id: item.id,
+                quantity: quantity,
+                title: item.title,
+                price: item.price,
+                total: item.price,
+                discountPercentage: 0,
+                discountedTotal: item.price,
+                images:item.images,
+                thumbnail: ''
+            }
+            this.http.post<CartElement>(`${this.url}/carts/${this.Cart().id}/products`,new_cart_element)
+          }
+        },
+        error:err=>{
+          console.error(err)
+        }
+    })
+
+    }
 
     GetCartItemsByApi(){
        return this.http.get<Cart[]>(`${this.url}/carts`).subscribe(

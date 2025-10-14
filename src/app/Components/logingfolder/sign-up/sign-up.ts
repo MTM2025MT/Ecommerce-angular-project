@@ -14,6 +14,7 @@ export class SignUp {
   LogingGroupForm:FormGroup;
   fb=inject(FormBuilder);
   UserService=inject(UserService)
+  errorMessage:string='';
   constructor(){
 
 this.LogingGroupForm = this.fb.group({
@@ -46,6 +47,8 @@ this.LogingGroupForm = this.fb.group({
       })
     }else{
       this.validateAllFormFields(this.LogingGroupForm);
+      this.errorMessage=this.LogingGroupForm.errors?.['MustMatch'] ? 'Passwords must match' : '';
+
     }
     this.LogingGroupForm.reset();
 

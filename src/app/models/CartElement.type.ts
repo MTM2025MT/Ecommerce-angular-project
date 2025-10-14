@@ -11,6 +11,18 @@ export type CartElement = {
   description?: string;
   images?: string[]
 }
+/**export type Product = {
+ id: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  discountPercentage: number;
+  rating: { rate: number; count: number; };
+  stock: number;
+  brand: string;
+
+} */
 
 export type Cart={
   products: CartElement[],

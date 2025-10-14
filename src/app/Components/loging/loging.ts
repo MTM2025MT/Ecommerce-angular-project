@@ -16,5 +16,7 @@ import { RouterOutlet } from '@angular/router';
 export class Loging {
   UserService=inject(UserService)
 
-
+  constructor(){
+    this.UserService.CheckUser("michael.williams@x.dummyjson.com","12341234")
+  }
 }

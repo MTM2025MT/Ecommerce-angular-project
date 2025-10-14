@@ -1,12 +1,12 @@
-
-
-import { catchError, lastValueFrom, Observable, single, subscribeOn } from 'rxjs';
+import { catchError, last, lastValueFrom, Observable, single, subscribeOn } from 'rxjs';
 import { UserService } from './../../services/user-service';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { OpenColseActionDirective } from '../../Directive/open-colse-action-directive';
 import { user ,payment, Address} from '../../models/User.type';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule ,ValidatorFn, Validators,ValidationErrors,AbstractControl } from '@angular/forms';
+import { OrderingProcess } from '../../services/ordering-process';
+import { order } from '../../models/Order.type';
 @Component({
   selector: 'app-profile',
   imports: [ReactiveFormsModule,CommonModule , OpenColseActionDirective ],
@@ -15,21 +15,38 @@ import { FormBuilder, FormGroup, ReactiveFormsModule ,ValidatorFn, Validators,Va
 })
 export class Profile implements OnInit{
     UserService=inject(UserService)
+    orderservice=inject(OrderingProcess)
     fb=inject(FormBuilder);
     PasswordChangeGroupForm!:FormGroup;
      AddingAddressGroupForm!:FormGroup;
      paymentGroupForm!:FormGroup;
      AccountdetailsGroupForm!:FormGroup;
-
+     orderslist=signal<order[]>([]);
     defaultUser= this.UserService.defaultUser
   defaultAdressForThisUser = signal<Address | null>(null);
   //store the edited or lasted edited address
    Editmode=signal({...this.defaultAdressForThisUser(),choice:false});
    Editmodepayment=signal(false);
+    Accountdetails={
+    FullName:this.defaultUser().firstName+" "+this.defaultUser().lastName,
+    email:this.defaultUser().email,
+    phone:this.defaultUser().phone,
+    address:this.defaultUser().addresses.find(address=>address.default)?.address || null
+   }
 
     constructor(){
+       this.orderservice.getUserOrders().subscribe({
+        next:orders=>{
+          console.log("the orders of this user are ",orders)
+          this.orderslist.set(orders)
+        },
+        error:err=>{
+          console.error("there is an error in getting orders of this user ",err)
+        }
+      })
     }
     ngOnInit(): void {
+
         this.PasswordChangeGroupForm = this.fb.group({
         password:this.fb.control('', [Validators.required, Validators.minLength(6)]),
         NewPassword:this.fb.control('', [Validators.required, Validators.minLength(6)]),
@@ -110,26 +127,79 @@ export class Profile implements OnInit{
     });
 
     this.AccountdetailsGroupForm = this.fb.group({
-      FullName: this.fb.control((this.defaultUser().firstName+this.defaultUser().lastName), [
-        Validators.required,
-        Validators.minLength(2),
-        Validators.pattern(/^[A-Za-z'-]+$/) // Only letters, hyphen, apostrophe
-      ]),
-      email: this.fb.control(this.defaultUser().email, [
+      FullName: this.fb.control(
+         this.Accountdetails.FullName,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          // Validators.pattern(/^[A-Za-z'-]+$/),
+        ]
+      ),
+      email: this.fb.control(this.Accountdetails.email, [
         Validators.required,
         Validators.email
       ]),
-      phone: this.fb.control(this.defaultUser().phone, [
+      phone: this.fb.control(this.Accountdetails.phone, [
         Validators.required,
-        Validators.pattern(/^\+?[1-9]\d{1,14}$/) // E.164 format
+      //  Validators.pattern(/^\+?[1-9]\d{1,14}$/)  E.164 format
       ]),
-      address: this.fb.control(this.defaultUser().addresses.length>0?this.defaultUser().addresses[0].address:'', [
+      address: this.fb.control(this.Accountdetails.address, [
         Validators.required,
         Validators.minLength(6),
-        Validators.pattern(/^[A-Za-z0-9\s.,'-]+$/) // letters, numbers, spaces, . , ' -
+      //  Validators.pattern(/^[A-Za-z0-9\s.,'-]+$/) // letters, numbers, spaces, . , ' -
       ]),
     });
+    this.AccountdetailsGroupForm.disable();
     }
+        en_dis_ableAccountDetails() {
+        if(this.AccountdetailsGroupForm.disabled){
+          this.AccountdetailsGroupForm.enable()
+          this.AccountdetailsGroupForm.controls["address"].disable()
+        }
+        else{
+          this.AccountdetailsGroupForm.disable()
+      }
+    }
+          AccountdetailsGroupFormsubmit(){
+        if(this.AccountdetailsGroupForm.valid){
+         const names=this.AccountdetailsGroupForm.controls["FullName"].value.trim().split(' ');
+         const updatedUserPartial: Partial<user> = {
+          firstName: names.slice(0, -1).join(' ') || '',
+          lastName: names.length > 1 ? names[names.length - 1] : '',
+          email: this.AccountdetailsGroupForm.controls["email"].value,
+          phone: this.AccountdetailsGroupForm.controls["phone"].value,
+         }
+
+          console.log("the updated user partial is ",updatedUserPartial)
+         this.UserService.PatchForUser(updatedUserPartial).subscribe({
+          next:res=>{console.log(res)},
+          error:err=> {
+            console.error(err);
+            // Revert the form values to the last known good state
+            const fullname=this.defaultUser().firstName+" "+this.defaultUser().lastName;
+            console.log("the full name is "+fullname)
+            this.AccountdetailsGroupForm.value({
+              FullName:fullname,
+              email:this.defaultUser().email,
+              phone:this.defaultUser().phone,
+              address:this.defaultUser().addresses.length>0?this.defaultUser().addresses[0].address:''
+            })
+          }
+      })
+          this.defaultUser=this.UserService.defaultUser
+        }else{
+          console.error("this form is not valid")
+           console.error(this.AccountdetailsGroupForm.errors)
+             const fullname=this.defaultUser().firstName+" "+this.defaultUser().lastName;
+            console.log("the full name is "+fullname)
+            this.AccountdetailsGroupForm.patchValue({
+              FullName:fullname,
+              email:this.defaultUser().email,
+              phone:this.defaultUser().phone,
+         }   )    }
+
+         this.AccountdetailsGroupForm.disable();
+      }
 
        paymentcompenentsubmit(){
        if(this.paymentGroupForm.valid){
@@ -321,6 +391,8 @@ export class Profile implements OnInit{
       RecentOrdersCompenentLock = signal(false);
     RecentOrdersLocktoggle() {
       this.RecentOrdersCompenentLock.update(v=>!v);
+      console.log(this.orderslist())
+      console.log("recentordercallle")
     }
 
     PreviousOrdersCompenentLock = signal(false);
@@ -347,22 +419,8 @@ export class Profile implements OnInit{
         this.paymentcompenentlocker.update(v=>!v)
 
       }
-      AccountdetailsGroupFormsubmit(){
-        if(this.AccountdetailsGroupForm.valid){
-          const updatedUserPartial={
-            firstName:this.AccountdetailsGroupForm.controls["FullName"].value.split(" ")[0],
-            lastName:this.AccountdetailsGroupForm.controls["FullName"].value.split(" ")[1],
-            email:this.AccountdetailsGroupForm.controls["email"].value,
-            phone:this.AccountdetailsGroupForm.controls["phone"].value,
-          }
-          this.UserService.PatchForUser(this.defaultUser().id,updatedUserPartial).subscribe({
-            next:res=>console.log(res),
-            error:err=>console.log(err)
-          })
-        }else{
-          console.error("this form is not valid")
-           console.error(this.AccountdetailsGroupForm.errors)
-         }
-      }
+
+
+
 
 }

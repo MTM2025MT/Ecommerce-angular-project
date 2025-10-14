@@ -1,4 +1,52 @@
-  <div style="width: 100%;" class="product-grid">
+<div style="width: 100%;" class="product-grid">
+    <div class="filter-bar">
+      <div (click)="FilterOpener($event)" class="filter">
+        <div  class="filter-header">
+         <h4 >price</h4>
+         <i class="bi bi-chevron-up"></i>
+        </div>
+          <div class="filter-body">
+            <div class="card flex justify-center">
+              <p-slider
+                [(ngModel)]="rangeValues"
+                (click)="getpricerangevalue($event)"
+                [range]="true"
+                [min]="0"
+                [max]="1000"
+                styleClass="price-slider"
+                class="w-full"
+              ></p-slider>
+            </div>
+          </div>
+
+      </div>
+      <div (click)="FilterOpener($event)" class="filter">
+        <div class="filter-header">
+         <h4>rate</h4>
+         <i class="bi bi-chevron-up"></i>
+        </div>
+        <div class="filter-body">
+       <p-rating [(ngModel)]="rate" />
+        </div>
+      </div>
+        <div (click)="FilterOpener($event)" class="filter">
+        <div class="filter-header">
+         <h4>categori</h4>
+         <i class="bi bi-chevron-up"></i>
+        </div>
+        <div class="filter-body">
+          <select (change)="getcategoryvalue($event)" class="category-select">
+            <option value="">All Categories</option>
+            @for( category of categories; track $index) {
+              <option  [value]="category">{{ category.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <button (click)="Filter($event)" class="filter-toggle-btn"><i class="bi bi-funnel"></i> Filter</button>
+      <button (click)="clearfilter()" class="clear-filters-btn">Clear Filters</button>
+    </div>
+    <div class="products">
   @for (product of productlist() | filterPipe:searchText; track $index) {
     <div  class="product-item" [attr.data-product-id]="product.id">
       <img [routerLink]="`products/single-product/${product.id}`" (click)="NavigatTosingleProduct(product.id)" [src]="product.images[0]?product.images[0]:imageurl" alt="Product Image">
@@ -15,4 +63,5 @@
       </div>
     </div>
   }
+  </div>
   </div>

@@ -1,4 +1,3 @@
-
 import { UserService } from './../../services/user-service';
 import { Component, inject, signal,OnInit } from '@angular/core';
 import { Navbar } from '../navbar/navbar';
@@ -71,68 +70,113 @@ export class Home implements OnInit{
       // console.log( "current is "+this.currentpage+" index is "+index+"end is"+end+" numvisible is "+this.numVisible+"what should return "+(index > this.currentpage  && index < (this.currentpage + this.numVisible)));
     return index > start && index <= end;
   }
+
  categories = [
-    {
-      name: 'Wing Chair',
-      products: 3584,
-      image: "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/1.webp",
-      index:0
-    },
-    {
-      name: 'Wooden Chair',
-      products: 157,
-      image:"https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/1.webp",
-      index:1
-    },
-    {
-      name: 'Desk Chair',
-      products: 154,
-      image:  "https://cdn.dummyjson.com/product-images/beauty/red-lipstick/1.webp",
-      index:2
-    },
-    {
-      name: 'Park Bench',
-      products: 154,
-      image: 'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp',
-      index:3
-    },
-    {
-      name: 'Sofa',
-      products: 300,
-      image: "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
-      index:4
-    },
-        {
-      name: 'Wing Chair',
-      products: 3584,
-      image: "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/1.webp",
-      index:5
-    },
-    {
-      name: 'Wooden Chair',
-      products: 157,
-      image:"https://cdn.dummyjson.com/product-images/beauty/red-nail-polish/1.webp",
-      index:6
-    },
-    {
-      name: 'Desk Chair',
-      products: 154,
-      image:  "https://cdn.dummyjson.com/product-images/beauty/red-lipstick/1.webp",
-      index:  7
-    },
-    {
-      name: 'Park Bench',
-      products: 154,
-      image: 'https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp',
-      index:  8
-    },
-    {
-      name: 'Sofa',
-      products: 300,
-      image: "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
-      index:  9
-    }
-  ];
+  {
+    id: 1,
+    name: "groceries",
+    image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=101",
+    products: 150,
+    index: 0
+  },
+  {
+    id: 2,
+    name: "furniture",
+    image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=102",
+    products: 250,
+    index: 1
+  },
+  {
+    id: 3,
+    name: "fragrances",
+    image: "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=103",
+    products: 180,
+    index: 2
+  },
+  {
+    id: 4,
+    name: "beauty",
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=104",
+    products: 120,
+    index: 3
+  },
+  {
+    id: 5,
+    name: "electronics",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=105",
+    products: 320,
+    index: 4
+  },
+  {
+    id: 6,
+    name: "clothing",
+    image: "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?auto=format&fit=crop&w=800&q=80",
+    image2: "https://picsum.photos/800/600?random=106",
+    products: 410,
+    index: 5
+   }
+   //,
+  // {
+  //   id: 7,
+  //   name: "toys",
+  //   image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=107",
+  //   products: 200,
+  //   index: 6
+  // },
+  // {
+  //   id: 8,
+  //   name: "books",
+  //   image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=108",
+  //   products: 260,
+  //   index: 7
+  // },
+  // {
+  //   id: 9,
+  //   name: "sports",
+  //   image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=109",
+  //   products: 140,
+  //   index: 8
+  // },
+  // {
+  //   id: 10,
+  //   name: "home appliances",
+  //   image: "https://images.unsplash.com/photo-1586201375761-83865001e31b?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=110",
+  //   products: 190,
+  //   index: 9
+  // },
+  // {
+  //   id: 11,
+  //   name: "automotive",
+  //   image: "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=111",
+  //   products: 175,
+  //   index: 10
+  // },
+  // {
+  //   id: 12,
+  //   name: "pets",
+  //   image: "https://images.unsplash.com/photo-1558944351-c1e0b79a5b31?auto=format&fit=crop&w=800&q=80",
+  //   image2: "https://picsum.photos/800/600?random=112",
+  //   products: 220,
+  //   index: 11
+  // }
+];
+onImgError(event: Event, fallbackUrl: string) {
+  const img = event.target as HTMLImageElement;
+  img.src = fallbackUrl;
+}
+
+
+
 
   responsiveOptions = [
     {
@@ -238,7 +282,11 @@ export class Home implements OnInit{
     }
   ]
 
-
+   products = [
+    { name:'Makeup',Text: 'Best Grocery Collection For Your Daily Needs.', image: 'makeup2.png' },
+    { name:'FreshMart',Text: 'Your Trusted Source for Fresh & Quality Products.', image: 'image.png' },
+    { name:'Makeup2',Text: 'Best Grocery Collection For Your Daily Needs', image: 'grocery.png' },
+  ];
 
 }
 

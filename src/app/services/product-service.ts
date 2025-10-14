@@ -11,7 +11,7 @@ export class ProductService {
   lastFetchTime=0;
     url:string=environment.apiUrl;
    private readonly FETCH_INTERVAL = 60 * 1000;
-   private productsSignal = signal<Product[]>([]);
+    productsSignal = signal<Product[]>([]);
 
    getproducts(){
     if(this.donow()||!this.lastFetchTime){
@@ -70,4 +70,13 @@ export class ProductService {
 
 
 }
+  getproductsbycategory(category:string){
+return this.http.get<Product[]>(`${this.url}/products?category=${category}`).pipe(
+
+      catchError(error => {
+        console.log(error);
+        throw 'error in source. Details: ' + error;
+    })
+    );
+  }
 }

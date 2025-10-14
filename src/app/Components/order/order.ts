@@ -26,7 +26,7 @@ export class Order {
     this.OrderForm=this.fb.group({
       address:this.fb.control(defaultAddress,[Validators.required]),
       payment:this.fb.control(defaultPayment,[Validators.required]),
-      notes:this.fb.control('',[Validators.required]),
+      notes:this.fb.control(''),
     })
   }
  getUserAddresses(){
