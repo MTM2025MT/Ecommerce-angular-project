@@ -1,3 +1,4 @@
+import { CartService } from './../../../services/cart-service';
 import { UserService } from './../../../services/user-service';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,6 +13,7 @@ import { user } from '../../../models/User.type';
 })
 export class SignUp {
   LogingGroupForm:FormGroup;
+  CartService=inject(CartService)
   fb=inject(FormBuilder);
   UserService=inject(UserService)
   errorMessage:string='';
@@ -42,13 +44,14 @@ this.LogingGroupForm = this.fb.group({
     if(this.LogingGroupForm.valid){
       const id = Math.floor(Math.random() * 1000000);
       this.UserService.CreateUser({...this.LogingGroupForm.value,id:id}).subscribe({
-        next:res=>console.log(res),
+        next:res=>{console.log(res)
+          this.CartService.createCartForUserbyId(id)
+        },
         error:err=>console.error(err)
       })
     }else{
       this.validateAllFormFields(this.LogingGroupForm);
       this.errorMessage=this.LogingGroupForm.errors?.['MustMatch'] ? 'Passwords must match' : '';
-
     }
     this.LogingGroupForm.reset();
 

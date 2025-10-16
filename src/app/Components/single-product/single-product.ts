@@ -64,7 +64,7 @@ export class SingleProduct implements OnInit {
   AddToCard(){
     const product = this.productItem();
     if (product) {
-      this.CartService.addToCart(product, this.quantity);
+      this.CartService.newaddToCart(product, this.quantity);
       this.router.navigate(['/shoping-cart']);
     }
   }
@@ -79,7 +79,7 @@ export class SingleProduct implements OnInit {
   stars = computed(() => {
   const product = this.productItem();
   if (product) {
-    const rounded = Math.round(product.rating?.rate ?? 0);
+    const rounded = Math.round(product.rating ?? 0);
     return Array.from({ length: 5 }, (_, i) => i < rounded);
   }
   return [0]

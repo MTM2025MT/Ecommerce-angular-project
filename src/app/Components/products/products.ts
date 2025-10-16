@@ -33,6 +33,7 @@ export class Products {
    SharedSearchValueService=inject(SharedSearchvalue);
     rate!:number;
     rangeValues: number[] = [0, 80];
+    catagoryvalue:string='';
     searchText:string='';
     imageurl:string='foto.jpg';
     favourite=signal(this.UserService.defaultUser().favourite)
@@ -65,7 +66,7 @@ export class Products {
   }
 
   addToCart(item:Product){
-    this.cartservice.addToCart(item);
+    this.cartservice.newaddToCart(item);
   }
 
   getpricerangevalue(event:any){
@@ -172,15 +173,10 @@ export class Products {
   //   index: 11
   // }
 ];
-  getcategoryvalue(event:any){
-    const category=event.target.value.name;
-    if(category){
-      this.productService.getproductsbycategory(category).subscribe({
-        next:(res)=>{ this.productlist.set(res);},
-        error: (err)=>{console.log('error while fetching data from server and the error message is : '+err)}
-      });
+  changecategoryvalue(event:any){
 
-  }
+     this.catagoryvalue=event.target.value;
+    console.log(this.catagoryvalue);
 }
  FilterOpener(event:any){
   let filterBody;
@@ -202,12 +198,39 @@ export class Products {
     filterBody.classList.toggle('open');
   }
   Filter(event:any){
-
+    let conditions: ((product: Product)=> boolean)[]=[];
+   if(this.rangeValues[0]!==0 || this.rangeValues[1]!==80){
+    console.log(( this.rangeValues[0]!==0) +""+(this.rangeValues[1]!==80));
+    const min=this.rangeValues[0];
+    const max=this.rangeValues[1];
+    conditions.push((product:Product)=> product.price>=min && product.price<=max)
+   }
+   if(this.rate){
+    conditions.push((product:Product)=> product.rating>=this.rate)
+   }
+   if(this.catagoryvalue!=''){
+    console.log(this.catagoryvalue);
+    conditions.push((product:Product)=> product.category==this.catagoryvalue)
+   }
+    if(conditions.length>0){
+      this.productService.getproductbymanyfilters(conditions).subscribe({
+        next:(res)=>{ this.productlist.set(res);},
+        error: (err)=>{console.log('error while fetching data from server and the error message is : '+err)}
+      });
+    }
   }
   clearfilter(){
-
+    this.productService.getproducts();
+    this.productlist.set(this.productService.productsSignal())
+    this.rangeValues=[0,80];
+    this.rate=0;
+    this.catagoryvalue='';
   }
-
+  onManualChange(event:any){
+    const value=event.target.value;
+    this.rate=value;
+    console.log(this.rate);
+  }
   NavigatTosingleProduct(id:number){
       this.router.navigate(['main/single-product',id]);
   }

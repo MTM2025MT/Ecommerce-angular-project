@@ -10,7 +10,7 @@ header {
   flex-direction: column;
 }
 .Navbar{
-  position: sticky;
+  position: relative;
    top: 0;
     z-index: 3;
 }
@@ -36,8 +36,12 @@ nav{
   text-decoration: none;
   color: rgb(8, 13, 59);
 }
-/* .NavbarIcons i{
+.second-navbar{
+  position: relative;
+}
 
+/* .NavbarIcons i{
+.
 
 } */
 

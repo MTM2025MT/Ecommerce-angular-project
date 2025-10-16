@@ -48,11 +48,11 @@
 
     <!-- Change Password -->
     <section  class="card" aria-labelledby="passwordTitle">
-      <div (click)="passwordbolckopenertoggle()" class="section-title">
+      <div appAppClickToggle  class="section-title section-title-header">
       <h2  class="section-title" id="passwordTitle" >🔒 Change Password</h2>
        <i  class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
        </div>
-      <form [formGroup]="PasswordChangeGroupForm" appOpenColseActionDirective [valueOflock]="PasswordCompenentLock()" style="max-width:700px">
+      <form class="passwordForm card-body" [formGroup]="PasswordChangeGroupForm"  style="max-width:700px">
         <label for="currentPassword">Current Password</label>
         <input formControlName="password" id="currentPassword" type="password">
 
@@ -73,8 +73,12 @@
 
     <!-- Recent Orders -->
     <section  class="card" aria-labelledby="recentOrdersTitle">
-      <h2 (click)="RecentOrdersLocktoggle()" id="recentOrdersTitle" class="section-title">🛍️ Recent Orders</h2>
-      <div appOpenColseActionDirective [valueOflock]="RecentOrdersCompenentLock()" class="list" id="recentOrders">
+      <!-- <h2 (click)="RecentOrdersLocktoggle()" id="recentOrdersTitle" class="section-title">🛍️ Recent Orders</h2> -->
+      <div appAppClickToggle  class="section-title section-title-header">
+            <h2  id="recentOrdersTitle" class="section-title">🛍️ Recent Orders</h2>
+          <i class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      </div>
+      <div  class="list card-body" id="recentOrders">
         <!-- <div class="list-item" data-order-id="1234">
           <div>
             <div style="font-weight:600">Order #1234</div>
@@ -112,37 +116,41 @@
     </section>
 
     <!-- Previous Orders -->
-    <section (click)="PreviousOrdersLocktoggle()" class="card" aria-labelledby="previousOrdersTitle">
-      <h2 id="previousOrdersTitle" class="section-title">📦 Previous Orders</h2>
-      <div appOpenColseActionDirective [valueOflock]="PreviousOrdersCompenentLock()" class="list">
-        <div class="list-item" data-order-id="101">
-          <div>
-            <div style="font-weight:600">Order #101</div>
-            <div style="color:var(--muted); font-size:13px">Placed on Aug 15, 2025</div>
-          </div>
-          <div class="status" style="color:var(--muted)">Completed</div>
-        </div>
-        <div class="list-item" data-order-id="102">
-          <div>
-            <div style="font-weight:600">Order #102</div>
-            <div style="color:var(--muted); font-size:13px">Placed on Jul 12, 2025</div>
-          </div>
-          <div class="status" style="color:var(--muted)">Completed</div>
-        </div>
+    <section  class="card" aria-labelledby="previousOrdersTitle">
+       <div appAppClickToggle  class="section-title section-title-header">
+        <h2 id="previousOrdersTitle" class="section-title">📦 Previous Orders</h2>
+         <i class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
       </div>
+        <div  class="card-body list">
+          <div class="list-item" data-order-id="101">
+            <div>
+              <div style="font-weight:600">Order #101</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Aug 15, 2025</div>
+            </div>
+            <div class="status" style="color:var(--muted)">Completed</div>
+          </div>
+          <div class="list-item" data-order-id="102">
+            <div>
+              <div style="font-weight:600">Order #102</div>
+              <div style="color:var(--muted); font-size:13px">Placed on Jul 12, 2025</div>
+            </div>
+            <div class="status" style="color:var(--muted)">Completed</div>
+          </div>
+        </div>
     </section>
 
+    <!--Address-->
     <section  class="card Saved-Addresses" aria-labelledby="addressesTitle">
-      <div (click)="SavedAddressesLocktoggle()" class="section-title">
-        <h2  id="addressesTitle" class="section-title">🏠 Saved Addresses</h2>
-      <i  class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+      <div appAppClickToggle  class="section-title section-title-header">
+        <h2   id="addressesTitle" class="section-title">🏠 Saved Addresses</h2>
+      <i   class="bi" [ngClass]="SavedAddressesCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
       </div>
-      <div appOpenColseActionDirective [valueOflock]="SavedAddressesCompenentLock()" class="list ">
+      <div  class="card-body list ">
         @for( addressitem of defaultUser().addresses; track $index){
           <div class="list-item" data-address-id="a1">
           <div>{{ addressitem.address }}, {{ addressitem.city }}, {{ addressitem.state }}</div>
           <div style="display:flex; gap:8px">
-            <button type="button" class="btn"  (click)="EditAddressBtn(addressitem)">Edit</button>
+            <button type="button" class="btn"  (click)="EditAddressBtn2(addressitem)">Edit</button>
             @if(addressitem.default==true){
               <button type="button" class="btn" >Default</button>
             }
@@ -155,7 +163,7 @@
         }
           <form
             [formGroup]="AddingAddressGroupForm"
-            (ngSubmit)="OnSubmitAddress()"
+            (ngSubmit)="OnSubmitAddress2()"
             class="AddingAddressForm form-grid"
             appOpenColseActionDirective
             [valueOflock]="AddingAddresslock()"
@@ -212,24 +220,23 @@
 
     <!-- Saved Payment Methods -->
     <section  class="card" aria-labelledby="paymentsTitle">
-      <div (click)="SavedPaymentMethodsLocktoggle()" class="section-title">
+      <div appAppClickToggle  class="section-title  section-title-header">
         <h2 id="paymentsTitle" class="section-title-payment">💳 Saved Payment Methods</h2>
-         <i  class="bi payment" [ngClass]="SavedPaymentMethodsCompenentLock() ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+         <i  class="bi payment" class="bi-chevron-up" ></i>
       </div>
-            @if(SavedPaymentMethodsCompenentLock()){
-              <div  class="list">
-                @for(paymentitem of defaultUser().bank;  track $index){
-                  <div class="list-item" data-payment-id="p1">
-                    <div class="chip">{{ paymentitem.name }}•••••••• {{ paymentitem.cardNumber.slice(-4) }}</div>
-                    <div style="display:flex; gap:8px">
-                      <button type="button" class="btn" (click)="onEditPayment(paymentitem)">Edit</button>
-                      <button type="button" class="btn" (click)="RemovePayment(paymentitem)" >Remove</button>
-                    </div>
-                  </div>
-                }
+      <div  class="card-body list">
+        @for(paymentitem of defaultUser().bank;  track $index){
+          <div class="list-item" data-payment-id="p1">
+            <div class="chip">{{ paymentitem.name }}•••••••• {{ paymentitem.cardNumber.slice(-4) }}</div>
+            <div style="display:flex; gap:8px">
+              <button type="button" class="btn" (click)="onEditPayment(paymentitem)">Edit</button>
+              <button type="button" class="btn" (click)="RemovePayment(paymentitem)" >Remove</button>
+            </div>
+          </div>
+        }
 
-              </div>
-            }
+      </div>
+
       <div style="margin-top:12px; display:flex; justify-content:flex-end">
         <button type="button" class="btn primary" (click)="paymentcompenenttoggle()">+ Add Payment Method</button>
       </div>

@@ -6,7 +6,7 @@
     <h2 class="section-title">📍 Select Address</h2>
     <select formControlName="address"  class="select-box">
      @for(address of getUserAddresses(); track $index){
-      <option value="{{address.id}}">{{address.address }} {{address.city }} {{address.country}}</option>
+      <option [value]="address.id">{{address.address }} {{address.city }} {{address.country}}</option>
      }
 
     </select>
@@ -17,7 +17,7 @@
     <h2 class="section-title">💳 Payment Method</h2>
     <select formControlName="payment" class="select-box">
     @for(payment of getUserPayments(); track $index){
-      <option value="{{payment.id}}">{{payment.cardType }}••••••••{{payment.cardNumber.slice(-4) }} </option>
+      <option [value]="payment.id">{{payment.name }} ••••••••{{payment.cardNumber.slice(-4) }} </option>
      }
     </select>
   </section>

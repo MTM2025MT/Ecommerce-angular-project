@@ -7,7 +7,7 @@ export class FilterbestwentyPipe implements PipeTransform {
 
   transform(ListOfProducts: Product[], ...args: unknown[]): Product[] {
   const items=  [...ListOfProducts].sort(
-      (p1,p2)=>p2.rating.rate-p1.rating.rate
+      (p1,p2)=>p2.rating-p1.rating
      ).slice(0,20);
 
      return items.map((p, i) => ({ ...p, index: i }))

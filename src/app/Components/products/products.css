@@ -1,9 +1,7 @@
 .product-grid{
-  display:grid;
-  grid-template-columns: 10% 1fr 1fr 1fr;
-  gap:30px;
+display: flex;
+  gap: 20px;
   position:relative;
-  padding:30px;
   justify-items: center;
 }
 .filter-bar{
@@ -13,6 +11,8 @@
   height:fit-content;
   position:sticky;
   top:10px;
+  width: 20%;
+  margin: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -35,21 +35,27 @@
   /* height: 30px; */
   display: none;
 }
-
+.min-price-input, .max-price-input {
+  width: 45%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
 .price-slider {
   width: 100%;
-  margin: 10px 0;
+
 }
 
 /* Optional: Make it match your app theme */
-/* :host ::ng-deep .p-slider .p-slider-range {
-  background: #ff6600; /* slider bar color
+ :host ::ng-deep .p-slider .p-slider-range {
+  background: #ff6600;
 }
 
 :host ::ng-deep .p-slider .p-slider-handle {
   border: 2px solid #ff6600;
-  background: #fff;
+  background: #029fae;
+  border-radius: 50%;
   width: 16px;
   height: 16px;
   top: -6px;
@@ -57,18 +63,28 @@
 
 :host ::ng-deep .p-slider .p-slider-track {
   height: 4px;
-  background-color: #ddd;
-} */
+  background-color: #029fae;
+}
+:host ::ng-deep .p-slider .p-slider-track:hover {
+  height: 4px;
+  background-color: #029fae!important;
+}
+
 
 .open{
   display: flex !important;
 }
 .products{
-  grid-column: 2 / 5;
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  justify-content: center;
+    grid-column: 2 / 5;
+    display: grid
+;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    justify-content: center;
+    justify-items: center;
+    width: 80%;
+    margin: 20px 0;
+
 }
 .product-item {
   display: flex;

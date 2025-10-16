@@ -1,15 +1,17 @@
 import { catchError, last, lastValueFrom, Observable, single, subscribeOn } from 'rxjs';
 import { UserService } from './../../services/user-service';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, ElementRef } from '@angular/core';
 import { OpenColseActionDirective } from '../../Directive/open-colse-action-directive';
 import { user ,payment, Address} from '../../models/User.type';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule ,ValidatorFn, Validators,ValidationErrors,AbstractControl } from '@angular/forms';
 import { OrderingProcess } from '../../services/ordering-process';
 import { order } from '../../models/Order.type';
+import {AppClickToggle} from '../../Directive/app-click-toggle'
+import { Output,EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-profile',
-  imports: [ReactiveFormsModule,CommonModule , OpenColseActionDirective ],
+  imports: [ReactiveFormsModule,CommonModule , OpenColseActionDirective,AppClickToggle ],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
@@ -17,13 +19,17 @@ export class Profile implements OnInit{
     UserService=inject(UserService)
     orderservice=inject(OrderingProcess)
     fb=inject(FormBuilder);
+     @Output() ErrorEmitter = new EventEmitter<string>();
+    //formGroups
     PasswordChangeGroupForm!:FormGroup;
      AddingAddressGroupForm!:FormGroup;
      paymentGroupForm!:FormGroup;
      AccountdetailsGroupForm!:FormGroup;
+
      orderslist=signal<order[]>([]);
     defaultUser= this.UserService.defaultUser
   defaultAdressForThisUser = signal<Address | null>(null);
+  EditedAddress=signal<Address | null>(null);
   //store the edited or lasted edited address
    Editmode=signal({...this.defaultAdressForThisUser(),choice:false});
    Editmodepayment=signal(false);
@@ -46,7 +52,7 @@ export class Profile implements OnInit{
       })
     }
     ngOnInit(): void {
-
+      //creating the formgroups
         this.PasswordChangeGroupForm = this.fb.group({
         password:this.fb.control('', [Validators.required, Validators.minLength(6)]),
         NewPassword:this.fb.control('', [Validators.required, Validators.minLength(6)]),
@@ -90,6 +96,7 @@ export class Profile implements OnInit{
                     Validators.required,
                     Validators.minLength(3),
                     Validators.pattern(/^[A-Za-z\s'-]+$/)
+
                 ]),
                 name:this.fb.control('',[
                     Validators.required,
@@ -151,6 +158,7 @@ export class Profile implements OnInit{
     });
     this.AccountdetailsGroupForm.disable();
     }
+   ////////////////////////////
         en_dis_ableAccountDetails() {
         if(this.AccountdetailsGroupForm.disabled){
           this.AccountdetailsGroupForm.enable()
@@ -160,6 +168,7 @@ export class Profile implements OnInit{
           this.AccountdetailsGroupForm.disable()
       }
     }
+   ////////////////////////////
           AccountdetailsGroupFormsubmit(){
         if(this.AccountdetailsGroupForm.valid){
          const names=this.AccountdetailsGroupForm.controls["FullName"].value.trim().split(' ');
@@ -200,41 +209,9 @@ export class Profile implements OnInit{
 
          this.AccountdetailsGroupForm.disable();
       }
+   ////////////////////////////
 
-       paymentcompenentsubmit(){
-       if(this.paymentGroupForm.valid){
-          if(this.Editmodepayment()){
-             const editedvalues=this.paymentGroupForm.getRawValue() as payment
-             const payments=this.defaultUser().bank?.map(payment=>{
-              if(payment.cardNumber==editedvalues.cardNumber){
-                return editedvalues
-              }
-              else{
-                return payment
-              }
-             })
-              this.defaultUser.update(user => ({
-              ...user,
-              bank:payments
-            }));
-          }
-          else{
-
-            this.defaultUser.update(user => ({
-              ...user,
-              bank: [...user.bank, {...this.paymentGroupForm.value,id:Math.floor(Math.random() * 10000000).toString()}]
-            }));
-          }
-        this.UserService.UpdatingUser(this.defaultUser())
-         this.defaultUser=this.UserService.defaultUser
-        this.paymentcompenenttoggle();
-       }else{
-
-        console.error("this form is not valid")
-         console.error(this.paymentGroupForm.errors)
-       }
-       this.paymentGroupForm.reset();
-      }
+         ////////////////////////////
         RemovePayment(paymentitem:payment){
        this.defaultUser.update(user=>({
          ...user,
@@ -246,6 +223,7 @@ export class Profile implements OnInit{
 
        this.UserService.UpdatingUser(this.defaultUser())
     }
+       ////////////////////////////
    MustMatchPassWord: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
         const password = control.get('NewPassword')?.value;
         const confirmPassword = control.get('confirmPassword')?.value;
@@ -256,8 +234,9 @@ export class Profile implements OnInit{
         }
         return null;
       };
+         ////////////////////////////
 
-    UpdatingPassword(){
+           UpdatingPassword(){
       console.log(this.PasswordChangeGroupForm.value)
       const newpasswordPartial={ password:this.PasswordChangeGroupForm.controls["NewPassword"].value}
      if(this.PasswordChangeGroupForm.valid){
@@ -282,8 +261,9 @@ export class Profile implements OnInit{
      }
      this.PasswordChangeGroupForm.reset()
     }
+       ////////////////////////////
+        EditAddressBtn(addressitem:Address){
 
-    EditAddressBtn(addressitem:Address){
       this.Editmode.update(
         lastedited=>{
           console.log("last id "+lastedited.id+" last name "+lastedited.name+" adderess item id "+addressitem.id+"  address name "+addressitem.name)
@@ -296,7 +276,9 @@ export class Profile implements OnInit{
           }
         }
       )
+
      this.AddingAddressGroupForm.patchValue(addressitem);
+
      if (this.Editmode().choice) {
       this.AddingAddressGroupForm.get('id')?.disable();
         }
@@ -305,8 +287,34 @@ export class Profile implements OnInit{
          }
          console.log(this.Editmode())
     }
+      EditAddressBtn2(addressitem:Address){
 
-    OnSubmitAddress(){
+      if(this.EditedAddress()==null||!(this.EditedAddress()?.id===addressitem.id)){
+       console.log(this.EditedAddress())
+        this.EditedAddress.update(
+          lastedited=>{
+            console.log("last id "+lastedited?.id+" last name "+lastedited?.name+" adderess item id "+addressitem.id+"  address name "+addressitem.name)
+            if(lastedited?.id===addressitem.id&&lastedited?.name===addressitem.name){
+
+                return {...lastedited }
+            }
+            else{
+              return {...addressitem }
+            }
+          }
+        )
+         this.AddingAddressGroupForm.patchValue(addressitem);
+          this.AddingAddressGroupForm.get('id')?.disable();
+      }
+      else{
+        this.AddingAddressGroupForm.reset()
+        this.EditedAddress.set(null)
+        this.AddingAddressGroupForm.get('id')?.enable();
+      }
+    }
+
+  ///////////////////////////////
+      OnSubmitAddress(){
       if(this.AddingAddressGroupForm.valid){
         if(!this.Editmode().choice){
 
@@ -336,15 +344,78 @@ export class Profile implements OnInit{
           ...user,
           addresses:addresses
          }))
-
+            this.AddingAddressGroupForm.reset();
           this.UserService.UpdatingUser(this.defaultUser())
         }
       }
       else{
         console.error("the form of adding address  is not valid ");
+        console.error(this.AddingAddressGroupForm.getError)
+      }
+
+      this.AddingAddressGroupForm.reset()
+    }
+     getInvalidControls(form: FormGroup): string[] {
+  const invalid = [];
+  const controls = form.controls;
+
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      invalid.push(name);
+    }
+  }
+
+  return invalid;
+}
+          OnSubmitAddress2(){
+      if(this.AddingAddressGroupForm.valid){
+        if(!this.EditedAddress()){
+
+          this.defaultUser.update(user=>(
+            {
+              ...user,
+              addresses:[...user.addresses,this.AddingAddressGroupForm.value]
+            }
+          ))
+          this.UserService.UpdatingUser(this.defaultUser())
+          this.defaultUser=this.UserService.defaultUser
+        }
+        else{
+          const editedaddress:Address=this.AddingAddressGroupForm.getRawValue() as Address;
+          const addresses:Address[]=this.defaultUser().addresses.map(address=>
+          {
+          if(editedaddress.id ==address.id){
+           return editedaddress
+
+          } else {
+            return address;
+          }
+         }
+
+         )
+         this.defaultUser.update(user=>({
+          ...user,
+          addresses:addresses
+         }))
+         this.EditedAddress.set(null)
+         this.AddingAddressGroupForm.reset();
+         this.AddingAddressGroupForm.get('id')?.enable();
+          this.UserService.UpdatingUser(this.defaultUser())
+        }
+      }
+      else{
+        console.error("the form of adding address  is not valid ");
+        const invalidControls = this.getInvalidControls(this.AddingAddressGroupForm);
+       let erroritem:string='the error are';
+       invalidControls.forEach((v)=>{
+        erroritem=erroritem+` at input  ${v}  `
+       })
+         this.ErrorEmitter.emit(erroritem)
       }
       this.AddingAddressGroupForm.reset()
     }
+
+        ////////////////////////////
     RemoveAddress(addressitem:Address){
        this.defaultUser.update(user=>({
          ...user,
@@ -356,6 +427,7 @@ export class Profile implements OnInit{
 
        this.UserService.UpdatingUser(this.defaultUser())
     }
+       ////////////////////////////
     SetDefualt(addressitem:Address ){
        const AddressArray=this.defaultUser().addresses.map(address=>
           {
@@ -376,33 +448,76 @@ export class Profile implements OnInit{
       this.UserService.UpdatingUser(this.defaultUser())
 
     }
-
+      ////////////////////////////
+      Editedpayment!:payment;
     onEditPayment(payment:payment){
       this.paymentcompenenttoggle()
       this.paymentGroupForm.patchValue(payment);
       this.Editmodepayment.update(v=>!v)
+      this.Editedpayment=payment
     }
+   ////////////////////////////
+       paymentcompenentsubmit(){
+       if(this.paymentGroupForm.valid){
+          if(this.Editmodepayment()){
+            console.log("it is on editing mode")
+             const editedvalues=this.paymentGroupForm.getRawValue() as payment
+             const payments=this.defaultUser().bank?.map(payment=>{
+              if(payment.id==this.Editedpayment.id){
+                return editedvalues
+              }
+              else{
+                return payment
+              }
+             })
+              this.defaultUser.update(user => ({
+              ...user,
+              bank:payments
+            }));
+          }
+          else{
 
+            this.defaultUser.update(user => ({
+              ...user,
+              bank: [...user.bank, {...this.paymentGroupForm.value,id:Math.floor(Math.random() * 10000000).toString()}]
+            }));
+          }
+        this.UserService.UpdatingUser(this.defaultUser())
+         this.defaultUser=this.UserService.defaultUser
+        this.paymentcompenenttoggle();
+       }else{
 
+        console.error("this form is not valid")
+         console.error(this.paymentGroupForm.errors)
+       }
+       this.paymentGroupForm.reset();
+      }
+
+   ///////////////////////////
    PasswordCompenentLock = signal(false);
     passwordbolckopenertoggle() {
       this.PasswordCompenentLock.update(v=>!v);
     }
-      RecentOrdersCompenentLock = signal(false);
+
+
+    /////////////////////////////
+    RecentOrdersCompenentLock = signal(false);
     RecentOrdersLocktoggle() {
       this.RecentOrdersCompenentLock.update(v=>!v);
       console.log(this.orderslist())
       console.log("recentordercallle")
     }
-
+      /////////////////////////////
     PreviousOrdersCompenentLock = signal(false);
       PreviousOrdersLocktoggle() {
         this.PreviousOrdersCompenentLock.update(v => !v);
       }
+      //  //////////////
       SavedAddressesCompenentLock = signal(false);
       SavedAddressesLocktoggle() {
         this.SavedAddressesCompenentLock.update(v => !v);
       }
+      ////////////////////
       AddingAddresslock=signal(false)
       AddingAddresstoggle(){
         this.AddingAddresslock.update(v=>!v)
@@ -413,6 +528,7 @@ export class Profile implements OnInit{
       SavedPaymentMethodsLocktoggle() {
         this.SavedPaymentMethodsCompenentLock.update(v => !v);
       }
+      /////////////////
       paymentcompenentlocker=signal(false)
       paymentcompenenttoggle(){
         this.paymentGroupForm.reset();

@@ -35,6 +35,18 @@ export class Order {
  getUserPayments(){
   return this.UserService.defaultUser().bank;
  }
+      getInvalidControls(form: FormGroup): string[] {
+  const invalid = [];
+  const controls = form.controls;
+
+  for (const name in controls) {
+    if (controls[name].invalid) {
+      invalid.push(name);
+    }
+  }
+
+  return invalid;
+}
  onSubmit(){
   if(this.OrderForm.valid){
     console.log(this.OrderForm.value);
@@ -58,6 +70,10 @@ export class Order {
     this.OrderForm.reset();
   }else{
     this.validateAllFormFields(this.OrderForm);
+    console.log("this is not valid order")
+            const invalidControls = this.getInvalidControls(this.OrderForm);
+       console.log('Invalid controls:', invalidControls);
+       console.log(this.OrderForm.controls["payment"].value)
   }
  }
  validateAllFormFields(OrderForm: FormGroup) {

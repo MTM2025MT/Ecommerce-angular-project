@@ -45,7 +45,7 @@ export class FavouritPage implements OnInit {
       this.favourite.update(prev=>prev)
     }
     addToCart(item:Product){
-    this.cartservice.addToCart(item);
+    this.cartservice.newaddToCart(item);
   }
     NavigatTosingleProduct(id:number){
       // this.router.navigate(['/single-product',id]);

@@ -5,7 +5,8 @@ export type Product = {
   category: string;
   price: number;
   discountPercentage: number;
-  rating: { rate: number; count: number; };
+  // rating: { rate: number; count: number; };
+  rating: number;
   stock: number;
   brand: string;
   images: string[];

@@ -17,6 +17,6 @@ export class Loging {
   UserService=inject(UserService)
 
   constructor(){
-    this.UserService.CheckUser("michael.williams@x.dummyjson.com","12341234")
+    this.UserService.CheckUser("mic24@gmail.com","12341234")
   }
 }

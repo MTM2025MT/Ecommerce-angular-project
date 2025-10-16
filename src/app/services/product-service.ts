@@ -79,4 +79,22 @@ return this.http.get<Product[]>(`${this.url}/products?category=${category}`).pip
     })
     );
   }
+  getproductbyfilter(condition: (product: Product) => boolean) {
+    return this.getproducts().pipe(
+      map((products: Product[]) => products.filter(condition)),
+      catchError(error => {
+        console.log(error);
+        throw 'error in source. Details: ' + error;
+      })
+    );
+  }
+  getproductbymanyfilters(conditions: ((product: Product) => boolean)[]) {
+    return this.getproducts().pipe(
+      map((products: Product[]) => products.filter(product => conditions.every(cond => cond(product)))),
+      catchError(error => {
+        console.log(error);
+        throw 'error in source. Details: ' + error;
+      })
+    );
+  }
 }

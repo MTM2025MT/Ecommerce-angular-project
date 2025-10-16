@@ -21,23 +21,21 @@ export class ShopingCart {
       router =inject(Router);
       ActivatedRoute=inject(ActivatedRoute);
   shopingservice=inject(CartService);
-  cartitems=signal<CartElement[]>([]);
+  cartitems=this.shopingservice.Cart;
   total=this.shopingservice.total;
   UserId=signal(0)
   items=signal(this.shopingservice.Cart().products)
   constructor(){
     effect(()=>{
-     let items=this.shopingservice.Cart().products
+     let items=this.cartitems().products
      this.items.set(items)
     }
     )
-    this.shopingservice.SaveShopingCart()
    }
 
 
    removeitem(item:CartElement){
-    this.shopingservice.RemoveFromCart(item);
-    this.cartitems.set(this.shopingservice.Cart().products);
+    this.shopingservice.newRemoveFromCart(item);
    }
    NavigattoOrder(){
     console.log(this.router.url)

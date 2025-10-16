@@ -24,9 +24,11 @@ export class Main {
    }
   @HostListener('window:beforeunload', ['$event'])
   unloadHandler(event: Event) {
-    this.CartService.SaveShopingCart();
     this.UserService.updatinguser()
   }
 
+  ongetError(error:string){
+
+  }
 
 }

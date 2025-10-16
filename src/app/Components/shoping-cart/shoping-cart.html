@@ -1,5 +1,5 @@
 <div class="cart-container">
-  @for(cartitem of items(); track $index)
+  @for(cartitem of cartitems().products; track $index)
   {
     <div class="cart-item">
       <img  alt="{{cartitem.title}}" class="cart-item-image" [src]="cartitem.images?.[0] || imageurl"/>

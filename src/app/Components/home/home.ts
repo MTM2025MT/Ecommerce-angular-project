@@ -1,16 +1,14 @@
 import { UserService } from './../../services/user-service';
 import { Component, inject, signal,OnInit } from '@angular/core';
-import { Navbar } from '../navbar/navbar';
 import {ProductService} from '../../services/product-service';
 import { Product } from '../../models/product.type';
 import { CartService } from '../../services/cart-service';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import {OnDestroy } from '@angular/core';
 import { SharedSearchvalue } from '../../services/shared-searchvalue';
-import { FilterPipePipe } from '../../pipes/filter-pipe-pipe';
 import { CommonModule } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import { FilterbestwentyPipe } from '../../pipes/filterbestwenty-pipe';
+import { Output ,EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-home',
   imports: [ RouterLink,CommonModule,CarouselModule,FilterbestwentyPipe],
@@ -23,13 +21,13 @@ export class Home implements OnInit{
    router =inject(Router);
    productService:ProductService=inject(ProductService);
    SharedSearchValueService=inject(SharedSearchvalue);
-
+    @Output() ErrorEmitter = new EventEmitter<string>();
     searchText:string='';
     imageurl:string='foto.jpg';
     favourite=signal(this.UserService.defaultUser().favourite)
     Favouritebtn =(productid:string)=> {
       this.UserService.favouritebtn(productid)
-      this.favourite.update(prev=>prev)
+      this.favourite.update(prev=>[...this.UserService.defaultUser().favourite])
     }
     productlist=signal<Product[]>([]);
 
@@ -46,7 +44,7 @@ export class Home implements OnInit{
   }
 
   addToCart(item:Product){
-    this.cartservice.addToCart(item);
+    this.cartservice.newaddToCart(item);
   }
 
   NavigatTosingleProduct(id:number){

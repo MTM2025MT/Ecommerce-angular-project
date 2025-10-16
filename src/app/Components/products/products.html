@@ -6,6 +6,11 @@
          <i class="bi bi-chevron-up"></i>
         </div>
           <div class="filter-body">
+            <div>
+              <input type="number" (change)="onManualChange($event)" [(ngModel)]="rangeValues[0]" disabled class="min-price-input" placeholder="Min Price" />
+              <span class="price-separator">-</span>
+              <input type="number" (change)="onManualChange($event)" [(ngModel)]="rangeValues[1]" disabled class="max-price-input" placeholder="Max Price" />
+            </div>
             <div class="card flex justify-center">
               <p-slider
                 [(ngModel)]="rangeValues"
@@ -35,10 +40,10 @@
          <i class="bi bi-chevron-up"></i>
         </div>
         <div class="filter-body">
-          <select (change)="getcategoryvalue($event)" class="category-select">
+          <select (click)="changecategoryvalue($event)" [value]="catagoryvalue" class="category-select">
             <option value="">All Categories</option>
             @for( category of categories; track $index) {
-              <option  [value]="category">{{ category.name }}</option>
+              <option  [value]="category.name">{{ category.name }}</option>
             }
           </select>
         </div>

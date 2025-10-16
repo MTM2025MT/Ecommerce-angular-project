@@ -12,7 +12,7 @@ export class FilterFeaturePipe implements PipeTransform {
     if (feature !== 'topRated') {
 
           const items=  [...ListOfProducts].sort(
-          (p1,p2)=>p2.rating.rate-p1.rating.rate
+          (p1,p2)=>p2.rating-p1.rating
           ).slice(0,20);
           return items.map((p, i) => ({ ...p, index: i }))
     }

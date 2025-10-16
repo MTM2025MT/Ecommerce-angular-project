@@ -3,7 +3,7 @@ import { Injectable, OnInit ,inject, signal} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {user} from '../models/User.type'
 import { environment } from '../../environments/environment';
-import { catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, tap } from 'rxjs';
 import { Address } from '../models/User.type';
 import { Router } from '@angular/router';
 @Injectable({
@@ -13,7 +13,7 @@ export class UserService {
     router=inject(Router)
     http:HttpClient=inject(HttpClient);
     url=environment.apiUrl
-    userdidsigned=signal(false)
+    userdidsigned=new BehaviorSubject<boolean|null>(null)
 defaultUser =signal<user>( {
   id: 0,
   firstName: "",
@@ -43,7 +43,7 @@ defaultUser =signal<user>( {
     )
   }
   CreateUser(userobj:user){
-    const user={...this.defaultUser(),...userobj}
+    const user={...this.defaultUser(),...userobj,id:`${userobj.id}`}
     return this.http.post(`${this.url}/users`,user);
   }
 
@@ -84,7 +84,7 @@ defaultUser =signal<user>( {
     next:res=>{
       if(res !=undefined){
       this.defaultUser.set(res)
-      this.userdidsigned.update(v=>!v)
+      this.userdidsigned.next(true)
       console.log("the user is now "+this.defaultUser().firstName+"and it is id is "+this.defaultUser().id)
        this.router.navigate(['/main'])
       }
