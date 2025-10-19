@@ -19,7 +19,6 @@ export class Profile implements OnInit{
     UserService=inject(UserService)
     orderservice=inject(OrderingProcess)
     fb=inject(FormBuilder);
-     @Output() ErrorEmitter = new EventEmitter<string>();
     //formGroups
     PasswordChangeGroupForm!:FormGroup;
      AddingAddressGroupForm!:FormGroup;
@@ -410,7 +409,6 @@ export class Profile implements OnInit{
        invalidControls.forEach((v)=>{
         erroritem=erroritem+` at input  ${v}  `
        })
-         this.ErrorEmitter.emit(erroritem)
       }
       this.AddingAddressGroupForm.reset()
     }

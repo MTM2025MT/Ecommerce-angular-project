@@ -285,6 +285,60 @@ onImgError(event: Event, fallbackUrl: string) {
     { name:'FreshMart',Text: 'Your Trusted Source for Fresh & Quality Products.', image: 'image.png' },
     { name:'Makeup2',Text: 'Best Grocery Collection For Your Daily Needs', image: 'grocery.png' },
   ];
+  responsiveOptions3=[
+    {
+     breakpoint: '1400px',
+    numVisible: 2,
+    numScroll: 1
+  },
+  {
+    breakpoint: '1200px',
+    numVisible: 2,
+    numScroll: 1
+  },
+  {
+    breakpoint: '992px',
+    numVisible: 2,
+    numScroll: 1
+  },
+  {
+    breakpoint: '768px',
+    numVisible: 1,
+    numScroll: 1
+  },
+  {
+    breakpoint:'575.98px',
+    numVisible:1,
+    numScroll:1
+  }
+  ]
+  responsiveOptions2 = [
+  {
+    breakpoint: '1400px',
+    numVisible: 4,
+    numScroll: 1
+  },
+  {
+    breakpoint: '1200px',
+    numVisible: 4,
+    numScroll: 1
+  },
+  {
+    breakpoint: '992px',
+    numVisible: 3,
+    numScroll: 1
+  },
+  {
+    breakpoint: '768px',
+    numVisible: 2,
+    numScroll: 1
+  },
+  {
+    breakpoint:'575.98px',
+    numVisible:2,
+    numScroll:1
+  }
+];
 
 }
 

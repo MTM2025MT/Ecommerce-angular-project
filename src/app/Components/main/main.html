@@ -26,7 +26,7 @@
     <h4>Category</h4>
     <ul>
       @for( category of Categories; track $index){
-        <li><a>{{category}}</a></li>
+        <li><a style="cursor: pointer;"  [routerLink]="`/main/products/${category.name}`" >{{category.name}}</a></li>
       }
     </ul>
   </div>

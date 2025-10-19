@@ -73,6 +73,7 @@
   [circular]="true"
   [autoplayInterval]="30000"
   styleClass="custom-carousel"
+  [responsiveOptions]="responsiveOptions2"
 
   >
 
@@ -174,9 +175,11 @@
             @else {
               <button style="color: gray;" (click)="Favouritebtn((product.id.toString()))" class="favorite-btn">♥</button>
             }
-          <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.name}}</p>
-          <div class="bottom-card">
-            <span class="product-price">20$</span>
+            <div class="bottom-card">
+              <div>
+                <p (click)="NavigatTosingleProduct(product.id)"  class="product-name">{{product.name}}</p>
+                <span class="product-price">20$</span>
+              </div>
             <button class="add-to-cart"><i class="bi bi-cart2"></i></button>
           </div>
         </div>
@@ -192,7 +195,7 @@
   [numScroll]="1"
   [circular]="true"
   [autoplayInterval]="300000"
-
+  [responsiveOptions]="responsiveOptions3"
 
   >
 

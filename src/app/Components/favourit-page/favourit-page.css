@@ -16,6 +16,7 @@
   position: relative;
   width: 80%; /* optional fixed width */
   border-radius: 8px;
+  font-size: 18px;
 }
 
 .product-item img {
@@ -26,13 +27,13 @@
 }
 
 .product-name {
-  font-size: 20px;
+  font-size: 1em;
   font-weight: bold;
   margin: 5px 0;
 }
 
 .product-price {
-  font-size: 18px;
+  font-size: 1em;
   color: green;
   margin-bottom: 10px;
 }
@@ -78,4 +79,38 @@
 .featured-products {
   text-align: center;
   overflow: hidden;
+}
+@media (max-width: 575.98px) {
+ .products{
+    grid-template-columns: 1fr 1fr;
+}
+ .product-item {
+   font-size: 9px;
+}
+}
+
+
+@media (min-width: 575.98px) and (max-width: 768px)  {
+ .product-item {
+   font-size: 13px;
+}
+ .product-item img{
+   height: 100px;
+   object-fit: contain;
+}
+.product-grid{
+
+    grid-template-columns: 1fr 1fr;
+}
+}
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991.98px) {
+ .products{
+
+    grid-template-columns: 1fr 1fr;
+}
+}
+/* Laptops */
+@media (min-width: 992px) {
+
 }

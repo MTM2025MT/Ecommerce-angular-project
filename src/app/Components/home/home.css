@@ -322,29 +322,37 @@ display: flex;
   border-radius: 8px;
 }
 .homesection .product-item-best20 p{
-  font-size: 10px;
+  font-size: 50%;
 }
-.homesection  .product-item-best20 .bottom-card{
-  height: 15%;
-  margin-bottom:5px ;
-  align-items: center;
-}
+
 .homesection .best20div .product-item img {
   width: 100%;
   height: 75%!important;
 
 }
+.homesection  .product-item-best20 .bottom-card{
+  height: 15%;
+  margin-bottom:5px ;
+  align-items: center;
+  font-size: 15px;
+}
 .homesection .price-title{
   height: 100%;
+  display: grid;
 }
 .homesection  .product-item-best20 .product-name{
-  height: 35%;
+    overflow: hidden;
+    font-size: 1em;
+    margin: 0;
+    height: 100%;
 }
 .homesection  .product-price-best20 {
-  font-size: 10px;
+  font-size: 1em;
   color: #029fae;
   margin:0;
+  height: 100%;
 }
+
 .homesection  .main-img-container{
   display: flex;
   justify-content: center;
@@ -438,16 +446,38 @@ background-color: rgb(0 0 0 / 65%);
   padding:30px;
   justify-items: center;
 }
-.homesection  .templet-grid-8 div{
+.homesection  .templet-grid-8 > div{
   width: 100%;
   height: 100%;
   border: 0 solid black;
+  font-size: 14px;
 }
 .homesection  .our-products{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
+}
+.our-products img{
+  height: 20vw!important;
+}
+.our-products .bottom-card{
+   display:flex;
+   align-items: flex-end;
+   padding: 0;
+}
+.our-products .product-name{
+  font-size: 1.2em;
+}
+.our-products .add-to-cart{
+  font-size: 1em;
+}
+.our-products .product-price{
+ font-size: 1em;
+}
+.our-products .add-to-cart{
+  height: 55%;
+  width: 17%;
 }
 .homesection  .our-products-header{
   width: 30%;
@@ -542,4 +572,39 @@ flex-direction: column;
 }
 
 /* Carousel nav buttons */
+
+
+@media (max-width: 575.98px) {
+  .homesection  .image-container img {
+  height: 180px;
+ }
+  .homesection  .templet-grid-8 > div{
+  font-size: 12px;
+ }
+}
+
+
+@media (min-width: 575.98px) and (max-width: 768px)  {
+  .homesection  .image-container img {
+  height: 220px;
+
+ }
+  .homesection  .templet-grid-8 > div{
+  font-size: 8px;
+ }
+
+}
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991.98px) {
+ .homesection  .image-container img {
+  height: 270px;
+ }
+ .homesection  .templet-grid-8 > div{
+  font-size: 12px;
+ }
+}
+/* Laptops */
+@media (min-width: 992px) {
+
+}
 

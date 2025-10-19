@@ -8,9 +8,10 @@ import { RouterLink,OutletContext } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
 import { Component, HostListener, inject, OnDestroy, signal } from '@angular/core';
 import { Navbar } from '../navbar/navbar';
+
 @Component({
   selector: 'app-main',
-  imports: [ReactiveFormsModule,RouterOutlet,Navbar],
+  imports: [ReactiveFormsModule,RouterOutlet,Navbar,RouterLink],
   templateUrl: './main.html',
   styleUrl: './main.css'
 })
@@ -18,7 +19,14 @@ export class Main {
    CartService=inject(CartService)
    UserService=inject(UserService)
    ProductService=inject(ProductService)
-   Categories: string[] = [];
+   Categories: {
+        id: number,
+    name: string,
+    image: string,
+    image2: string,
+    products: number,
+    index: number
+   }[] = [];
    constructor(){
     this.Categories=this.ProductService.getCategories()
    }
